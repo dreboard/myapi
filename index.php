@@ -1,13 +1,23 @@
 <?php
 require_once 'vendor/autoload.php';
 
-$config['displayErrorDetails'] = true;
-$app = new \Slim\App(['settings' => $config]);
+$c = new \Slim\Container(); //Create Your container
+
+//Override the default Not Found Handler
+$c['notFoundHandler'] = function ($c) {
+	return function ($request, $response) use ($c) {
+		return $c['response']
+			->withStatus(404)
+			->withHeader('Content-Type', 'text/html')
+			->write('Page not found');
+	};
+};
+
+$app = new \Slim\App($c);
 
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 use \MyAPI\Application\User;
-
 
 //$app->contentType('application/json');
 /*$app->get('/users', 'User::getUsers');
@@ -24,17 +34,24 @@ $app->get('/allusers', function(Request $request, Response $response, $args){
 */
 $app->get('/allusers', function(Request $request, Response $response, $args){
 	$users = User::getUsers();
-	$user_array = [];
-	foreach ($users as $user){
-		$user_array[$user->id] = [
-			'name' => $user->name,
-			'email' => $user->email,
-			'age' => $user->age
-		];
+	if($users){
+		$user_array = [];
+		foreach ($users as $user){
+			$user_array[$user->id] = [
+				'name' => $user->name,
+				'email' => $user->email,
+				'age' => $user->age
+			];
+		}
+		return $response->withStatus(200)->withJson($user_array);
+	} else {
+		return $response->withStatus(400);
 	}
-	return $response->withStatus(201)->withJson($user_array);
+
 });
 
-
+$app->get('/getip', function(Request $request, Response $response, $args){
+	echo $_SERVER['REMOTE_HOST'];
+});
 
 $app->run();
