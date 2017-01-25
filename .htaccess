@@ -1,0 +1,28 @@
+
+Options +FollowSymLinks
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteRule . /myapi/index.php [QSA,L]
+
+RewriteRule ^ index.php [QSA,L]
+
+ErrorDocument 400     C:/xampp/htdocs/myapi/errors/400.html
+ErrorDocument 401     C:/xampp/htdocs/myapi/errors/401.html
+ErrorDocument 403     C:/xampp/htdocs/myapi/errors/403.html
+ErrorDocument 404     C:/xampp/htdocs/myapi/errors/404.html
+ErrorDocument 500     C:/xampp/htdocs/myapi/errors/500.html
+
+php_flag display_startup_errors on
+php_flag display_errors on
+php_flag html_errors on
+php_flag  log_errors on
+php_value error_log  C:/xampp/htdocs/myapi/logs/errors.log
+
+
+
+<Files C:/xampp/htdocs/myapi/logs/errors.log>
+     Order allow,deny
+     Deny from all
+     Satisfy All
+</Files>

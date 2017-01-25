@@ -1,0 +1,9 @@
+{
+    "require": {
+        "slim/slim": "^3.7"
+    },
+    "autoload": {
+        "psr-4": {"MyAPI\\Application\\": ["./application"]},
+        "files": ["config/config.php", "config/functions.php"]
+    }
+}
