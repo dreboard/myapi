@@ -1,8 +1,16 @@
 <?php
 /**
+ * Main functions file
+ *
  * set_error_handler
  * set_exception_handler
  * Dump and die dev tool
+ *
+ * @package     MyAPI\Support
+ * @author      Andre Board
+ * @version     v0.1.0
+ * @since       0.1.0
+ *
  */
 
 if(ENVIRONMENT === 'development'){

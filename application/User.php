@@ -1,10 +1,14 @@
 <?php
 namespace MyAPI\Application;
 /**
- * Created by PhpStorm.
- * User: Andre
- * Date: 1/24/2017
- * Time: 10:54 PM
+ * MyAPI user class.
+ *
+ * @package     MyAPI\Application
+ * @subpackage  main
+ * @author      Andre Board
+ * @version     v0.1.0
+ * @since       0.1.0
+ *
  */
 
 use \Psr\Http\Message\ServerRequestInterface as Request;
@@ -12,6 +16,11 @@ use \Psr\Http\Message\ResponseInterface as Response;
 
 class User {
 
+	/**
+	 * Database connection
+	 *
+	 * @todo Move to separate file
+	 */
 	public static function getConnection() {
 		$dbhost="127.0.0.1";
 		$dbuser="root";
@@ -21,8 +30,9 @@ class User {
 		$dbh->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 		return $dbh;
 	}
+
 	/**
-	 *
+	 * @return array
 	 */
 	public static function getUsers() {
 		$sql = "select * FROM users";

@@ -4,6 +4,6 @@
     },
     "autoload": {
         "psr-4": {"MyAPI\\Application\\": ["./application"]},
-        "files": ["config/config.php", "config/functions.php"]
+        "files": ["config/constants.php", "config/config.php", "config/functions.php"]
     }
 }

@@ -1,4 +1,15 @@
 <?php
+/**
+ * Entry point for MyAPI.
+ *
+ * @package    myapi
+ * @subpackage main
+ * @author     Andre Board
+ * @version    v0.1.0
+ * @since 0.1.0
+ *
+ */
+
 require_once 'vendor/autoload.php';
 
 $c = new \Slim\Container(); //Create Your container
@@ -32,6 +43,13 @@ $app->get('/allusers', function(Request $request, Response $response, $args){
 	return $response->write($user);
 });
 */
+
+/**
+ * @todo Add versioning
+ */
+$app->group('/v1', function(){
+
+});
 $app->get('/allusers', function(Request $request, Response $response, $args){
 	$users = User::getUsers();
 	if($users){
