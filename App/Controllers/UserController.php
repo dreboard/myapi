@@ -56,11 +56,23 @@ class UserController extends BaseController{
 
 	/**
 	 *
+	 * @param  \Psr\Http\Message\ServerRequestInterface $request PSR7 request
+	 * @param  \Psr\Http\Message\ResponseInterface $response PSR7 response
+	 *
+	 * @return mixed
 	 */
 	public function add_user(Request $request, Response $response) {
-		global $app;
-		$req = $app->request();
-		$body = json_decode($req->getBody());
+		$input = $request->getParsedBody();
+		if ($input === null) {
+			return $response->withJson(
+				['error_decoding_json' => json_last_error_msg()],
+				400,
+				JSON_PRETTY_PRINT
+			);
+		}
+		var_dump($input);exit;
+
+		$first = filter_posts($data['first']);
 
 		$sql = "INSERT INTO users (`name`,`email`,`age`) VALUES (:name, :email, :age)";
 		try {

@@ -79,6 +79,21 @@ if(ENVIRONMENT === 'development'){
 		}
 		set_exception_handler('exception_handler');
 	}
+	if (!function_exists('filter_posts'))
+	{
+		/**
+		 * Filter post data
+		 *
+		 * @param string $data
+		 * @return string $data
+		 */
+		function filter_posts($data) {
+			if(filter_var(trim($data), FILTER_SANITIZE_STRING)){
+				return true;
+			}
+			throw new Exception("Unable to filter variables");
+		}
+	}
 
 	if (!function_exists('viewdump'))
 	{

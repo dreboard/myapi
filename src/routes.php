@@ -8,7 +8,7 @@ try{
 
 	$app->group('/users', function () {
 		$this->get('/by/{id:[0-9]+}', '\App\Controllers\UserController:find_user');
-		$this->map(['PUT', 'POST'], '/search', '\App\Controllers\UserController:update_user');
+		$this->map(['PUT', 'POST'], '/add_user', '\App\Controllers\UserController:add_user');
 		$this->map(['GET', 'POST'], '/all', '\App\Controllers\UserController:get_all_users');
 	});
 
