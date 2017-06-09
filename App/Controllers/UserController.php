@@ -16,11 +16,19 @@ use \Psr\Http\Message\ResponseInterface as Response;
 use \System\BaseController;
 use \PDO;
 use \PDOException;
-use \PDOStatement;
+use \App\Models\User;
 
 class UserController extends BaseController{
 
-	/**
+    public $user_model;
+
+    public function __construct($c)
+    {
+        parent::__construct($c);
+        $this->user_model = new User();
+    }
+
+    /**
 	 * @param Request $request
 	 * @param Response $response
 	 * @param $args
@@ -41,7 +49,7 @@ class UserController extends BaseController{
 	 *
 	 * @return mixed
 	 */
-	public function get_all_users(Request $request, Response $response) {
+	public function get_users(Request $request, Response $response) {
 		$sql = "select * FROM users";
 		try {
 			$stmt = $this->db->query($sql);
@@ -53,6 +61,22 @@ class UserController extends BaseController{
 			echo json_encode($e->getMessage());
 		}
 	}
+
+    /**
+     * @param Request $request
+     * @param Response $response
+     *
+     * @return mixed
+     */
+    public function get_all_users(Request $request, Response $response) {
+        try {
+            $user_array = $this->user_model::all();
+            return $response->withStatus(200)->withJson($user_array);
+        }
+        catch(\Throwable $e) {
+            echo json_encode($e->getMessage());
+        }
+    }
 
 	/**
 	 *
