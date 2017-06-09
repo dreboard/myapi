@@ -1,7 +1,9 @@
 <?php
 return [
 	'settings' => [
-		'displayErrorDetails' => true, // set to false in production
+        'determineRouteBeforeAppMiddleware' => false,
+        'outputBuffering' => false,
+        'displayErrorDetails' => true,
 
 		// Renderer settings
 
@@ -14,5 +16,15 @@ return [
 			"user"   => "root",
 			"pass"   => ""
 		],
+        'illuminate' => [
+            'driver' => 'mysql',
+            'host' => 'localhost',
+            'database' => 'api',
+            'username' => 'root',
+            'password' => '',
+            'charset'   => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'prefix'    => '',
+        ],
 	],
 ];

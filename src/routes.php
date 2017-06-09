@@ -4,6 +4,7 @@
  */
 
 try{
+
 	$app->get('/find_user/{id:[0-9]+}', '\App\Controllers\UserController:find_user');
 
 	$app->group('/users', function () {
@@ -19,5 +20,8 @@ try{
 	});
 
 } catch (Throwable $e){
+    $this->get('/', function(Request $request, Response $response){
+        return $response->write('Url invalid');
+    });
 	echo json_encode($e->getMessage());
 }
