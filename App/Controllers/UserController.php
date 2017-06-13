@@ -13,12 +13,11 @@ namespace App\Controllers;
 
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
-use \System\BaseController;
 use \PDO;
 use \PDOException;
 use \App\Models\User;
 
-class UserController extends BaseController{
+class UserController extends \System\BaseController{
 
     public $user_model;
 

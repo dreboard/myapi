@@ -25,33 +25,20 @@ $c['notFoundHandler'] = function ($c) {
 
 
 
-// PDO database library
+// PDO database DSN
 $container['db'] = function ($c) {
 	$settings = $c->get('settings')['db'];
-	$pdo = new PDO("mysql:host=" . $settings['host'] . ";dbname=" . $settings['dbname'],
-		$settings['user'], $settings['pass']);
+	$pdo = new PDO("mysql:host=" . $settings['host'] . ";dbname=" . $settings['database'],
+		$settings['username'], $settings['password']);
 	$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	$pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 	return $pdo;
 };
 
-/**
- * @param $container
- * @return \Illuminate\Database\Capsule\Manager
 
-$container['illuminate'] = function ($container) {
-
-    $capsule = new \Illuminate\Database\Capsule\Manager;
-    $capsule->addConnection($container['settings']['illuminate']);
-    //$capsule->setEventDispatcher(new Illuminate\Contracts\Events\Dispatcher(new Container));
-    $capsule->setAsGlobal();
-    $capsule->bootEloquent();
-
-    return $capsule;
-};
-*/
-$capsule = new \Illuminate\Database\Capsule\Manager;
-$capsule->addConnection($container['settings']['illuminate']);
+// Instantiate Eloquent ORM
+$capsule = new Illuminate\Database\Capsule\Manager;
+$capsule->addConnection($container['settings']['db']);
 $capsule->setAsGlobal();
 $capsule->bootEloquent();
 

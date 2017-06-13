@@ -10,13 +10,7 @@ return [
 		// Monolog settings
 
 		// Database connection settings
-		"db" => [
-			"host"   => "localhost",
-			"dbname" => "api",
-			"user"   => "root",
-			"pass"   => ""
-		],
-        'illuminate' => [
+        'db' => [
             'driver' => 'mysql',
             'host' => 'localhost',
             'database' => 'api',

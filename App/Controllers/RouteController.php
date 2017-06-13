@@ -21,7 +21,7 @@ use \PDO;
 use \PDOException;
 use \PDOStatement;
 
-class UserController extends BaseController{
+class RouteController extends BaseController{
 
 	/**
 	 * @param Request $request
