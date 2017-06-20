@@ -21,11 +21,11 @@ class UserController extends \System\BaseController{
 
     public $user_model;
 
-    public function __construct($c)
-    {
-        parent::__construct($c);
-        $this->user_model = new User();
-    }
+	public function __construct($c)
+	{
+		parent::__construct($c);
+		$this->user_model = new User();
+	}
 
     /**
 	 * @param Request $request

@@ -6,6 +6,8 @@
 /**
  * Version 1.0 routes file
  */
+$app->get( '/get_version', '\App\Controllers\HomeController:get_version' );
+
 $app->group( '/v1', function () use ( $app ) {
 
 	$this->get( "/", function ( $request, $response, $args ) {
