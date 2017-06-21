@@ -45,6 +45,6 @@ $capsule->bootEloquent();
 $container['db'] = function ($container) use($capsule) {
     return $capsule;
 };
-$container['BaseModel'] = function($container){
-	return new \System\BaseModel($container['dsn']);
+$container['BaseModel'] = function(){
+	return new \System\BaseModel();
 };

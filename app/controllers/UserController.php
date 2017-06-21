@@ -91,10 +91,12 @@ class UserController extends \System\BaseController{
 
 		try {
 			if ( $this->userdao->insertUser( $request->getParsedBody() ) ) {
-				return $response->withStatus( 201 )->withJson( [ 'status' => 'success', 'errors' => 'none' ] );
+				return $response->withStatus( 201 )->withJson( [
+					'status' => 'success',
+					'errors' => 'none' ] );
 			}
 		} catch ( \Throwable $e ) {
-			return $response->withJson(
+			return $response->withStatus( 201 )->withJson(
 				[
 					'status' => json_last_error_msg(),
 					'errors' => $e->getMessage()

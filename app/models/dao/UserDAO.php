@@ -1,7 +1,7 @@
 <?php
 namespace App\Models;
 
-use System;
+use System\BaseModel;
 /**
  * class UserDAO
  * User Data Access Object
