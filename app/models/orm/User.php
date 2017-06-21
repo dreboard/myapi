@@ -1,7 +1,9 @@
 <?php
 namespace App\Models;
 /**
- * User model.
+ * User ORM.
+ * User shell class used as a base for the users table
+ * uses Illuminate Object Relational Mapper
  *
  * @package     MyAPI\Application
  * @subpackage  Models

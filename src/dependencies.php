@@ -26,7 +26,7 @@ $c['notFoundHandler'] = function ($c) {
 
 
 // PDO database DSN
-$container['db'] = function ($c) {
+$container['dsn'] = function ($c) {
 	$settings = $c->get('settings')['db'];
 	$pdo = new PDO("mysql:host=" . $settings['host'] . ";dbname=" . $settings['database'],
 		$settings['username'], $settings['password']);
@@ -44,4 +44,7 @@ $capsule->bootEloquent();
 
 $container['db'] = function ($container) use($capsule) {
     return $capsule;
+};
+$container['BaseModel'] = function($container){
+	return new \System\BaseModel($container['dsn']);
 };

@@ -15,16 +15,19 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 use \PDO;
 use \PDOException;
-use \App\Models\User;
+use \App\Models\{User, UserDAO};
 
 class UserController extends \System\BaseController{
 
     public $user_model;
 
+
+
 	public function __construct($c)
 	{
 		parent::__construct($c);
 		$this->user_model = new User();
+		$this->userdao = new UserDAO();
 	}
 
     /**
@@ -85,28 +88,20 @@ class UserController extends \System\BaseController{
 	 * @return mixed
 	 */
 	public function add_user(Request $request, Response $response) {
-		$input = $request->getParsedBody();
-		if ($input === null) {
+
+		try {
+			if ( $this->userdao->insertUser( $request->getParsedBody() ) ) {
+				return $response->withStatus( 201 )->withJson( [ 'status' => 'success', 'errors' => 'none' ] );
+			}
+		} catch ( \Throwable $e ) {
 			return $response->withJson(
-				['error_decoding_json' => json_last_error_msg()],
+				[
+					'status' => json_last_error_msg(),
+					'errors' => $e->getMessage()
+				],
 				400,
 				JSON_PRETTY_PRINT
 			);
-		}
-		var_dump($input);exit;
-
-		$first = filter_posts($data['first']);
-
-		$sql = "INSERT INTO users (`name`,`email`,`age`) VALUES (:name, :email, :age)";
-		try {
-			$stmt = $this->db->prepare($sql);
-			$stmt->bindParam("name", $body->userName);
-			$stmt->bindParam("email", $userEmail);
-			$stmt->bindParam("age", $userAge);
-			$stmt->execute();
-			return $response->withStatus(201);
-		} catch(\PDOException $e) {
-			echo json_encode($e->getMessage());
 		}
 	}
 }

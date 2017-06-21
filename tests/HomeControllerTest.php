@@ -9,19 +9,24 @@ require_once "../vendor/autoload.php";
  */
 
 use App\Controllers\{
-	HomeController
+	HomeController, UserController
 };
 use PHPUnit\Framework\{
 	TestCase
 };
 use Slim\Http\Environment;
 
-class HomeControllerTest extends TestCase {
+class HomeControllerTest extends SlimBase {
 
 	private $home;
+	private $user;
 
-	protected function setUp(){
+	public function setUp(){
+
+		parent::setUp();
+
 		$this->home = new HomeController();
+		$this->user = new UserController($this->container);
 	}
 
 	/**
@@ -42,4 +47,24 @@ class HomeControllerTest extends TestCase {
 		$response = $this->home->get_version($request, $response);
 		$this->assertSame((string)$response->getBody(), '{"version":"v1.0"}');
 	}
+	/**
+	 * @covers HomeController::get_version
+	 */
+	public function testInsertUser()
+	{
+		$environment = \Slim\Http\Environment::mock([
+			'REQUEST_METHOD' => 'POST',
+			'REQUEST_URI' => '/v1/users/add_user',
+			'QUERY_STRING' => 'first=Alex&last=Board&email=alex.board@gmail.com',
+			'CONTENT_TYPE' => 'application/x-www-form-urlencoded;charset=utf8',
+		]);
+
+		$request = \Slim\Http\Request::createFromEnvironment($environment);
+		$response = new \Slim\Http\Response();
+
+		// run the controller action and test it
+		$response = $this->user->add_user($request, $response);
+		$this->assertSame((string)$response->getBody(), '{"status":"success","errors":"none"}');
+	}
+
 }
