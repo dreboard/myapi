@@ -17,8 +17,9 @@ $app->group( '/v1', function () use ( $app ) {
 	} );
 
 	$app->group( '/users', function () {
-		$this->get( '/by/{id:[0-9]+}', '\App\Controllers\UserController:findUser' );
-		$this->post('/add_user', '\App\Controllers\UserController:addUser' );
+		$this->get( '/by/{id:[0-9]+}', '\App\Controllers\UserController:findUserRequest' );
+		$this->delete( '/by/{id:[0-9]+}', '\App\Controllers\UserController:deleteUserRequest' );
+		$this->post('/add_user', '\App\Controllers\UserController:addUserRequest' );
 		$this->map( [ 'GET', 'POST' ], '/all', '\App\Controllers\UserController:getAllUsers' );
 	} );
 });

@@ -38,6 +38,8 @@ class UserController extends \System\BaseController
      *
      * Instantiate new user models
      * @param Container Object $c
+     *
+     * @codeCoverageIgnore
      */
     public function __construct($c)
     {
@@ -53,7 +55,7 @@ class UserController extends \System\BaseController
      *
      * @internal param int $id
      */
-    public function findUser(Request $request, Response $response, $args)
+    public function findUserRequest(Request $request, Response $response, $args)
     {
         try {
             $id = $args['id'];
@@ -130,7 +132,7 @@ class UserController extends \System\BaseController
      *
      * @return mixed
      */
-    public function addUser(Request $request, Response $response)
+    public function addUserRequest(Request $request, Response $response)
     {
 
         try {
@@ -144,11 +146,60 @@ class UserController extends \System\BaseController
                 [
                     'json_errors' => json_last_error_msg(),
                     'php_errors' => $e->getMessage(),
-                    'php_file' => $e->getFile() . ' ' . $e->getLine()
+                    'php_file' => $e->getFile() . ' ' . $e->getLine(),
+                    'api_msg'       => 'None'
                 ],
                 400,
                 JSON_PRETTY_PRINT
             );
         }
     }
+
+	/**
+	 * Remove user by ID
+	 *
+	 * @param Request $request
+	 * @param Response $response
+	 * @param $args
+	 *
+	 * @internal 405 response sent to client
+	 */
+	public function deleteUserRequest(Request $request, Response $response, $args)
+	{
+		if(false == $request->isDelete()){
+			return $response->withJson(
+				[
+					'json_errors'   => json_last_error_msg(),
+					'php_errors'    => 'none',
+					'php_file'      => __CLASS__.' '.__LINE__,
+					'api_msg'       => 'Method must be DELETE'
+				],
+				405,
+				JSON_PRETTY_PRINT
+			);
+		}
+		try {
+			$id = $args['id'];
+			if(!$id){
+				throw new \InvalidArgumentException($this->lang['invalid_id']);
+			}
+			$user = $this->userdao->findUserByID($id);
+			if ($user) {
+				return $response->withStatus(200)->withJson($user);
+			} else {
+				throw new \Exception($this->lang['valid_user']);
+			}
+		} catch (\Throwable $e) {
+			return $response->withStatus(201)->withJson(
+				[
+					'json_errors' => json_last_error_msg(),
+					'php_errors' => $e->getMessage(),
+					'php_file' => $e->getFile() . ' ' . $e->getLine(),
+					'api_msg'       => 'None'
+				],
+				400,
+				JSON_PRETTY_PRINT
+			);
+		}
+	}
 }

@@ -18,16 +18,19 @@ use PHPUnit\Framework\{
 };
 use Slim\Http\Environment;
 
-class HomeControllerTest extends SlimBase
+class HomeControllerTest extends TestCase
 {
 
     private $home;
     private $user;
 
-    public function setUp()
+	/**
+	 *
+	 */
+	public function setUp()
     {
 
-        parent::setUp();
+        //parent::setUp();
 
         $this->home = new HomeController();
         $this->user = new UserController($this->container);
