@@ -4,10 +4,11 @@
  *
  * @package     MyAPI\Support
  * @author      Andre Board
- * @version     v0.1.0
- * @since       0.1.0
+ * @since       v0.1.0
  *
  */
+$path = '../vendor/autoload.php';
+set_include_path(get_include_path() . PATH_SEPARATOR . $path);
 
 ini_set('date.timezone', 'America/Chicago');
 

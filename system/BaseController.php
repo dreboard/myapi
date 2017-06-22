@@ -6,11 +6,15 @@ use \Psr\Http\Message\ResponseInterface as Response;
 
 
 class BaseController {
+
 	protected $container;
+
+    protected $lang;
 
 	public function __construct($c)
 	{
 		$this->container = $c;
+		$this->lang = require __DIR__ . '/../config/lang.php';
 	}
 
 	public function __get($property) {

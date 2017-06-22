@@ -9,23 +9,25 @@ require_once "../vendor/autoload.php";
 use PHPUnit\Framework\{
 	TestCase
 };
+use Slim\App;
 
 class SlimBase extends TestCase {
 
 	protected $container;
+	protected $app;
 
-	public function setUp(  ) {
+    /**
+     * Test base class setup
+     */
+    public function setUp()
+    {
 		$settings = require __DIR__ . '/../src/settings.php';
-
-		$app = new \Slim\App($settings);
-
+		$this->app = new App($settings);
 		require __DIR__ . '/../src/dependencies.php';// Set up dependencies
-
 		require __DIR__ . '/../src/middleware.php';// Register middleware
-
 		require __DIR__ . '/../src/routes.php';// Register routes
 
-		$this->container = $app->getContainer()->get("db");
-		$app->run();
+		$this->container = $this->app->getContainer()->get("db");
+        $this->app->run();
 	}
 }

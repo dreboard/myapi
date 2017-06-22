@@ -1,12 +1,11 @@
 <?php
 /**
- * Entry point for MyAPI.
+ * Entry point for API.
  *
  * @package    myapi
  * @subpackage main
  * @author     Andre Board
  * @version    v0.1.0
- * @since 0.1.0
  *
  */
 require_once __DIR__ .'/../vendor/autoload.php';
@@ -18,7 +17,7 @@ use \Illuminate\Database\Capsule\Manager as Capsule;
 
 // Instantiate the app
 $settings = require __DIR__ . '/../src/settings.php';
-
+$lang  = require __DIR__ . '/../config/lang.php';
 $app = new \Slim\App($settings);
 
 require __DIR__ . '/../src/dependencies.php';// Set up dependencies

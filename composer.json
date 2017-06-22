@@ -9,11 +9,13 @@
     "autoload": {
         "psr-4": {
             "App\\Controllers\\": "app/controllers/",
+            "App\\Services\\": "app/services/",
             "App\\Models\\": [
                 "app/models/orm",
                 "app/models/dao"
             ],
-            "System\\": "system/"
+            "System\\": "system/",
+            "APITesting\\": "tests/"
         },
         "autoload-dev": {
             "psr-4": {"APITesting\\": "tests/"}
