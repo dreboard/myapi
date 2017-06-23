@@ -1,22 +1,50 @@
 <?php
 namespace System;
 
-use \Psr\Http\Message\ServerRequestInterface as Request;
-use \Psr\Http\Message\ResponseInterface as Response;
-
-
+use \Interop\Container\ContainerInterface as ContainerInterface;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+use Monolog\Handler\FirePHPHandler;
+/**
+ * Class BaseController
+ * @package System
+ */
 class BaseController {
 
+	/**
+	 * @var ContainerInterface
+	 */
 	protected $container;
 
-    protected $lang;
+	/**
+	 * @var array
+	 */
+	protected $lang;
 
-	public function __construct($c)
+	/**
+	 * @var Logger
+	 */
+	protected $logger;
+
+	/**
+	 * BaseController constructor.
+	 *
+	 * @param ContainerInterface $c
+	 */
+	public function __construct(ContainerInterface $c)
 	{
+		$this->logger = new Logger('api_logger');
+		$this->logger->pushHandler(new StreamHandler(__DIR__.'/../logs/app.log', Logger::DEBUG));
+		$this->logger->pushHandler(new FirePHPHandler());
 		$this->container = $c;
 		$this->lang = require __DIR__ . '/../config/lang.php';
 	}
 
+	/**
+	 * @param $property
+	 *
+	 * @return mixed
+	 */
 	public function __get($property) {
 		if($this->container->has($property)) {
 			return $this->container->get($property);

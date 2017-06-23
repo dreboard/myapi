@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Controllers;
 
 /**
@@ -10,7 +9,7 @@ namespace App\Controllers;
  * @since       v0.1.0
  *
  */
-
+use \Interop\Container\ContainerInterface as ContainerInterface;
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 use \App\Models\{
@@ -18,6 +17,9 @@ use \App\Models\{
 };
 use Psr\Log\InvalidArgumentException;
 use Slim\Container;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+use Monolog\Handler\FirePHPHandler;
 
 class UserController extends \System\BaseController
 {
@@ -41,7 +43,7 @@ class UserController extends \System\BaseController
      *
      * @codeCoverageIgnore
      */
-    public function __construct($c)
+    public function __construct(ContainerInterface $c)
     {
         parent::__construct($c);
         $this->user_model = new User();
@@ -57,9 +59,23 @@ class UserController extends \System\BaseController
      */
     public function findUserRequest(Request $request, Response $response, $args)
     {
+	    if(false == $request->isGet()){
+		    $this->logger->info('API Message', array('methods' => 'invalid method'));
+		    return $response->withJson(
+			    [
+				    'json_errors'   => json_last_error_msg(),
+				    'php_errors'    => 'none',
+				    'php_file'      => __CLASS__.' '.__LINE__,
+				    'api_msg'       => $this->lang['api_msg_get']
+			    ],
+			    405,
+			    JSON_PRETTY_PRINT
+		    );
+		    exit;
+	    }
         try {
             $id = $args['id'];
-            if(!$id){
+            if(!$id || false == is_numeric($id)){
                 throw new \InvalidArgumentException($this->lang['invalid_id']);
             }
             $user = $this->userdao->findUserByID($id);
@@ -69,13 +85,14 @@ class UserController extends \System\BaseController
                 throw new \Exception($this->lang['valid_user']);
             }
         } catch (\Throwable $e) {
-            return $response->withStatus(201)->withJson(
+	        $this->logger->error('API Exception', array('exception' => $e->getMessage()));
+            return $response->withJson(
                 [
                     'json_errors' => json_last_error_msg(),
                     'php_errors' => $e->getMessage(),
                     'php_file' => $e->getFile() . ' ' . $e->getLine()
                 ],
-                400,
+                200,
                 JSON_PRETTY_PRINT
             );
         }
@@ -134,7 +151,19 @@ class UserController extends \System\BaseController
      */
     public function addUserRequest(Request $request, Response $response)
     {
-
+	    if(false == $request->isPost()){
+		    $this->logger->info('API Message', array('methods' => 'invalid method'));
+		    return $response->withJson(
+			    [
+				    'json_errors'   => json_last_error_msg(),
+				    'php_errors'    => 'none',
+				    'php_file'      => __CLASS__.' '.__LINE__,
+				    'api_msg'       => 'Method must be POST'
+			    ],
+			    405,
+			    JSON_PRETTY_PRINT
+		    );
+	    }
         try {
             if ($this->userdao->insertUser($request->getParsedBody())) {
                 return $response->withStatus(201)->withJson([

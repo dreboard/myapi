@@ -1,16 +1,19 @@
 <?php
 namespace APITesting;
 
-/**
- * Base class for slim/phpunit integration
- * set up a method that runs the application.
- */
 use Slim\{App, Http\Environment, Http\Request, Http\Response};
 use PHPUnit\Framework\{
 	TestCase
 };
 
-class SlimBase extends TestCase
+/**
+ * Class TestBase
+ * @package APITesting
+ *
+ * Base class for slim/phpunit integration
+ * set up a method that runs the application.
+ */
+class TestBase extends TestCase
 {
 	/**
 	 * Use middleware when running application?
@@ -21,6 +24,7 @@ class SlimBase extends TestCase
 
 	/**
 	 * Process the application given a request method and URI
+	 * Create a mock environment for testing with
 	 *
 	 * @param string $requestMethod the request method (e.g. GET, POST, etc.)
 	 * @param string $requestUri the request URI
@@ -29,36 +33,28 @@ class SlimBase extends TestCase
 	 */
 	public function runApp($requestMethod, $requestUri, $requestData = null)
 	{
-		// Create a mock environment for testing with
 		$environment = Environment::mock(
 			[
 				'REQUEST_METHOD' => $requestMethod,
 				'REQUEST_URI' => $requestUri
 			]
 		);
-		// Set up a request object based on the environment
 		$request = Request::createFromEnvironment($environment);
-		// Add request data, if it exists
 		if (isset($requestData)) {
 			$request = $request->withParsedBody($requestData);
 		}
-		// Set up a response object
 		$response = new Response();
-		// Use the application settings
 		$settings = require __DIR__ . '/../src/settings.php';
-		// Instantiate the application
 		$app = new App($settings);
-		// Set up dependencies
+
 		require __DIR__ . '/../src/dependencies.php';
-		// Register middleware
+
 		if ($this->withMiddleware) {
 			require __DIR__ . '/../src/middleware.php';
 		}
-		// Register routes
+
 		require __DIR__ . '/../src/routes.php';
-		// Process the application
 		$response = $app->process($request, $response);
-		// Return the response
 		return $response;
 	}
 }

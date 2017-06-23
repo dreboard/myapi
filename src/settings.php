@@ -8,7 +8,10 @@ return [
 		// Renderer settings
 
 		// Monolog settings
-
+        'logger' => [
+	        'name' => 'app',
+	        'path' => __DIR__ . '/../logs/app.log',
+        ],
 		// Database connection settings
         'db' => [
             'driver' => 'mysql',
