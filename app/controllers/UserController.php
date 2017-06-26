@@ -59,20 +59,6 @@ class UserController extends \System\BaseController
      */
     public function findUserRequest(Request $request, Response $response, $args)
     {
-	    if(false == $request->isGet()){
-		    $this->logger->info('API Message', array('methods' => 'invalid method'));
-		    return $response->withJson(
-			    [
-				    'json_errors'   => json_last_error_msg(),
-				    'php_errors'    => 'none',
-				    'php_file'      => __CLASS__.' '.__LINE__,
-				    'api_msg'       => $this->lang['api_msg_get']
-			    ],
-			    405,
-			    JSON_PRETTY_PRINT
-		    );
-		    exit;
-	    }
         try {
             $id = $args['id'];
             if(!$id || false == is_numeric($id)){
@@ -192,6 +178,7 @@ class UserController extends \System\BaseController
 	 * @param $args
 	 *
 	 * @internal 405 response sent to client
+     * @codeCoverageIgnore
 	 */
 	public function deleteUserRequest(Request $request, Response $response, $args)
 	{

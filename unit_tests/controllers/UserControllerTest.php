@@ -7,6 +7,7 @@ use PHPUnit\Framework\{
 };
 use Slim\Http\Environment;
 use Slim\Http\Request;
+use App\Controllers;
 
 /**
  * Class UserControllerTest
@@ -25,6 +26,7 @@ class UserControllerTest extends TestBase{
 	public function setUp()
 	{
 		$this->app = new \Slim\App();
+		$this->user = new UserController();
 	}
 
 	public function testGetHomepageWithoutName()
@@ -42,30 +44,9 @@ class UserControllerTest extends TestBase{
 
 	/**
 	 * Create new user test
-	 * for tesing POST requests
-	 * @covers UserController::addUserRequest
+	 * for testing POST requests
 	 */
-	public function testUserInsert()
-	{
-		try {
-			$data = '{"first":"Andre", "last":"Jackson", "email":"dre.board@gmail.com"}';
-			$input = json_decode($data, true);
-
-			$response = $this->runApp('POST', '/v1/users/add_user', $input);
-			$this->assertEquals(201, $response->getStatusCode());
-			$this->assertContains('{"status":"success","errors":"none"}', (string)$response->getBody());
-
-		}
-		catch(\Exception $e) {
-			$this->fail();
-		}
-	}
-	/**
-	 * Create new user test
-	 * for tesing POST requests
-	 * @covers UserController::findUserRequest
-	 */
-	public function testGetUser()
+	public function testfindUserRequest()
 	{
 		try {
 			$response = $this->runApp('GET', '/v1/users/by/1');
@@ -75,13 +56,47 @@ class UserControllerTest extends TestBase{
 			$this->fail();
 		}
 	}
+    /**
+     * Create new user test
+     * for testing POST requests
+     */
+    public function testfindUserMethod()
+    {
+        try {
+            $response = $this->runApp('GET', '/v1/users/by/1');
+            $this->assertEquals(200, $response->getStatusCode());
+        }
+        catch(\Exception $e) {
+            $this->fail();
+        }
+    }
+    /**
+     * Create new user test
+     * for tesing POST requests
+     *
+     */
+    public function testUserInsert()
+    {
+        try {
+            $data = '{"first":"Andre", "last":"Jackson", "email":"dre.board@gmail.com"}';
+            $input = json_decode($data, true);
+
+            $response = $this->runApp('POST', '/v1/users/add_user', $input);
+            $this->assertEquals(201, $response->getStatusCode());
+            $this->assertContains('{"status":"success","errors":"none"}', (string)$response->getBody());
+
+        }
+        catch(\Exception $e) {
+            $this->fail();
+        }
+    }
 
 	/**
 	 * Ensure that a get controller method
 	 * returns a 405 error when using POST
 	 * for a method expecting a GET request
-	 *
-	 * @covers UserController::findUserRequest
+     *
+	 * @depends testUserInsert
 	 */
 	public function testGetUserFailWrongMethod()
 	{

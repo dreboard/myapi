@@ -8,7 +8,7 @@
  * @version    v0.1.0
  *
  */
-require_once __DIR__ .'/../vendor/autoload.php';
+$settings = require __DIR__ . '/../src/composer.php';
 
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
