@@ -21,9 +21,9 @@
             "System\\": "system/"
         },
         "autoload-dev": {
-            "psr-4": {"APITesting\\": ["unit_tests/", "unit_tests/controllers", "unit_tests/TestBase.php"]}
+            "psr-4": {"APITesting\\": ["unit_tests/", "unit_tests/controllers"]}
         },
-        "files": ["config/environment.php", "config/constants.php", "config/config.php", "config/functions.php"]
+        "files": ["config/environment.php", "config/constants.php", "config/config.php", "config/functions.php", "unit_tests/TestBase.php"]
     },
     "scripts": {
         "post-install-cmd": [

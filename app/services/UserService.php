@@ -1,16 +1,29 @@
 <?php
 namespace App\Services;
+
+use System\BaseService;
+use \App\Models\{
+    User, UserDAO
+};
+
 /**
- * MyAPI user class.
+ * Class UserService
  *
- * @package     MyAPI\Application
+ * @package     App\Services
  * @subpackage  Controllers
- * @author      Andre Board
- * @version     v0.1.0
- * @since       0.1.0
+ * @since       v0.1.0
  *
  */
-class UserService
+class UserService extends BaseService
 {
+
+    public function __construct()
+    {
+        parent::__construct();
+        //$this->user_model = new User();
+        //$this->user_service = new UserService();
+        //$this->userdao = new UserDAO();
+    }
+
 
 }

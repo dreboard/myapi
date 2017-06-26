@@ -29,19 +29,18 @@ class BaseModel {
 	 *
 	 * @param $dsn
 	 */
-	public function __construct($dsn = null) {
+	public function __construct() {
 		$this->lang = require __DIR__ . '/../config/lang.php';
 		$this->config = require __DIR__.'/../src/settings.php';
-		$this->dsn = $dsn;
-/*	    try{
+        try{
             $this->dsn = new \PDO(
-            	"mysql:host={$this->config['settings']['db']['host']};dbname={$this->config['settings']['db']['database']}",
-	            $this->config['settings']['db']['username'],
-	            $this->config['settings']['db']['password']);
+                "mysql:host={$this->config['settings']['db']['host']};dbname={$this->config['settings']['db']['database']}",
+                $this->config['settings']['db']['username'],
+                $this->config['settings']['db']['password']);
             $this->dsn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
             $this->dsn->setAttribute( PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC );
         } catch (\PDOException $e){
             echo $e->getMessage();
-        }*/
+        }
 	}
 }

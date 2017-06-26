@@ -24,6 +24,7 @@ class UserDAO extends BaseModel{
             ],
         "select" =>
             [
+                "all" => "SELECT * FROM users",
                 "by_id" => "SELECT * FROM users WHERE id=:id"
             ],
         "delete" =>
@@ -40,6 +41,22 @@ class UserDAO extends BaseModel{
 		parent::__construct();
 	}
 
+    /**
+     * Find all users
+     *
+     * @return mixed
+     * @internal User ORM can perform this task
+     */
+    public function searchUserRequest()
+    {
+        try {
+            $query = $this->dsn->prepare($this->sql['select']['all']);
+            $query->execute();
+            return $query->fetchAll(PDO::FETCH_OBJ);
+        } catch (PDOException $e) {
+            return json_encode($e->getMessage());
+        }
+    }
     /**
      * Find user by user_id
      *
