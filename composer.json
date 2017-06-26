@@ -8,7 +8,8 @@
         "phpunit/phpunit": "6.2.*",
         "phpunit/php-code-coverage": "^5.2",
         "estahn/phpunit-json-assertions": "@stable",
-        "codeception/codeception": "^2.3"
+        "codeception/codeception": "^2.3",
+        "brainmaestro/composer-git-hooks": "^2.2"
     },
     "autoload": {
         "psr-4": {
@@ -26,9 +27,19 @@
         "files": ["config/environment.php", "config/constants.php", "config/config.php", "config/functions.php", "unit_tests/TestBase.php"]
     },
     "scripts": {
-        "post-install-cmd": [
-            "dev_ops/git/post-merge.sh"
-        ]
+        "post-install-cmd": "vendor/bin/cghooks add --ignore-lock",
+        "post-update-cmd": "vendor/bin/cghooks update",
+        "...": "..."
+    },
+
+    "extra": {
+        "hooks": {
+            "pre-commit": "phpunit",
+            "post-commit": "echo committed",
+            "pre-push": "phpunit && echo pushing!",
+            "...": "..."
+        }
     }
+
 
 }
