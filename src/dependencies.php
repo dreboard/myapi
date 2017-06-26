@@ -11,6 +11,16 @@ $container['errorHandler'] = function ($container) {
     };
 };
 
+//Override the default php error Handler
+$container['phpErrorHandler'] = function ($c) {
+	return function ($request, $response, $error) use ($c) {
+		// log error here
+		return $c['response']->withStatus(500)
+			->withHeader('Content-type', 'application/json')
+			->withJson(["php_error" => "A php error has occured"]);
+	};
+};
+
 //Override the default Not Allowed Handler
 $container['notAllowedHandler'] = function ($container) {
 	return function ($request, $response, $methods) use ($container) {
@@ -36,12 +46,17 @@ $container['notFoundHandler'] = function ($container) {
 
 // PDO database DSN
 $container['dsn'] = function ($container) {
-	$settings = $container->get('settings')['db'];
-	$pdo = new PDO("mysql:host=" . $settings['host'] . ";dbname=" . $settings['database'],
-		$settings['username'], $settings['password']);
-	$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-	$pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-	return $pdo;
+	try{
+		$settings = $container->get('settings')['db'];
+		$pdo = new PDO("mysql:host=" . $settings['host'] . ";dbname=" . $settings['database'],
+			$settings['username'], $settings['password']);
+		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		$pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+		return $pdo;
+	} catch (PDOException $e){
+
+	}
+
 };
 
 
@@ -54,6 +69,13 @@ $capsule->bootEloquent();
 $container['db'] = function ($container) use($capsule) {
     return $capsule;
 };
-$container['BaseModel'] = function(){
-	return new \System\BaseModel();
+
+
+$container['BaseModel'] = function() use ($container){
+	return new \System\BaseModel($container->get('dsn'));
+};
+
+
+$container['BaseController'] = function() use ($container){
+	return new \System\BaseController($container);
 };

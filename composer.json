@@ -5,7 +5,7 @@
         "monolog/monolog": "^1.23.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "6.0.11",
+        "phpunit/phpunit": "6.2.*",
         "phpunit/php-code-coverage": "^5.2",
         "estahn/phpunit-json-assertions": "@stable",
         "codeception/codeception": "^2.3"
@@ -21,9 +21,14 @@
             "System\\": "system/"
         },
         "autoload-dev": {
-            "psr-4": {"APITesting\\": ["unit_tests/", "unit_tests/controllers"]}
+            "psr-4": {"APITesting\\": ["unit_tests/", "unit_tests/controllers", "unit_tests/TestBase.php"]}
         },
-        "files": ["config/environment.php", "config/constants.php", "config/config.php", "config/functions.php", "unit_tests/TestBase.php"]
+        "files": ["config/environment.php", "config/constants.php", "config/config.php", "config/functions.php"]
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "dev_ops/git/post-merge.sh"
+        ]
     }
 
 }

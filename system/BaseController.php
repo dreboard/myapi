@@ -12,7 +12,7 @@ use Monolog\Handler\FirePHPHandler;
 class BaseController {
 
 	/**
-	 * @var ContainerInterface
+	 * @var Container
 	 */
 	protected $container;
 
@@ -29,9 +29,9 @@ class BaseController {
 	/**
 	 * BaseController constructor.
 	 *
-	 * @param ContainerInterface $c
+	 * @param $c
 	 */
-	public function __construct(ContainerInterface $c)
+	public function __construct($c)
 	{
 		$this->logger = new Logger('api_logger');
 		$this->logger->pushHandler(new StreamHandler(__DIR__.'/../logs/app.log', Logger::DEBUG));
