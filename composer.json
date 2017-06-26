@@ -19,6 +19,7 @@
                 "app/models/orm",
                 "app/models/dao"
             ],
+            "App\\Helpers\\": "app/helpers/",
             "System\\": "system/"
         },
         "autoload-dev": {

@@ -61,7 +61,9 @@ class UserController extends \System\BaseController
     public function findUserRequest(Request $request, Response $response, $args)
     {
         try {
-            $id = $args['id'];
+
+            $id = $this->user_service->validateStr($args['id']);
+            viewdump($this->user_service->validateStr($args['id']));
             if(!$id || false == is_numeric($id)){
                 throw new \InvalidArgumentException($this->lang['invalid_id']);
             }
