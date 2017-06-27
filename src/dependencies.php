@@ -21,6 +21,8 @@ $container['phpErrorHandler'] = function ($c) {
 	};
 };
 
+unset($app->getContainer()['phpErrorHandler']);
+
 //Override the default Not Allowed Handler
 $container['notAllowedHandler'] = function ($container) {
 	return function ($request, $response, $methods) use ($container) {
@@ -44,7 +46,7 @@ $container['notFoundHandler'] = function ($container) {
 
 
 
-// PDO database DSN
+// PDO database DSN for BaseModel::class
 $container['dsn'] = function ($container) {
 	try{
 		$settings = $container->get('settings')['db'];
@@ -76,6 +78,6 @@ $container['BaseModel'] = function() use ($container){
 };
 
 
-$container['BaseController'] = function() use ($container){
-	return new \System\BaseController($container);
+$container['BaseController'] = function(){
+	return new \System\BaseController();
 };

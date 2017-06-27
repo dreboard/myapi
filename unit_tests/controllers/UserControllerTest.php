@@ -26,7 +26,7 @@ class UserControllerTest extends TestBase{
 	public function setUp()
 	{
 		$this->app = new \Slim\App();
-		$this->user = new UserController();
+		//$this->user = new UserController();
 	}
 
 	public function testGetHomepageWithoutName()
@@ -96,7 +96,7 @@ class UserControllerTest extends TestBase{
 	 * returns a 405 error when using POST
 	 * for a method expecting a GET request
      *
-	 * @depends testUserInsert
+	 *
 	 */
 	public function testGetUserFailWrongMethod()
 	{

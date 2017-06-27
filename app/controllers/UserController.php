@@ -5,10 +5,10 @@ namespace App\Controllers;
  * Class UserController
  * @package     App\Controllers
  * @subpackage  Controllers
- * @author      Andre Board
  * @since       v0.1.0
  *
  */
+use App\Services\UserService;
 use \Interop\Container\ContainerInterface as ContainerInterface;
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
@@ -47,6 +47,7 @@ class UserController extends \System\BaseController
     {
         parent::__construct($c);
         $this->user_model = new User();
+        $this->user_service = new UserService();
         $this->userdao = new UserDAO();
     }
 
@@ -60,7 +61,9 @@ class UserController extends \System\BaseController
     public function findUserRequest(Request $request, Response $response, $args)
     {
         try {
-            $id = $args['id'];
+
+            $id = $this->user_service->validateStr($args['id']);
+            viewdump($this->user_service->validateStr($args['id']));
             if(!$id || false == is_numeric($id)){
                 throw new \InvalidArgumentException($this->lang['invalid_id']);
             }
@@ -92,14 +95,19 @@ class UserController extends \System\BaseController
      */
     public function get_users(Request $request, Response $response)
     {
-        $sql = "select * FROM users";
         try {
-            $stmt = $this->db->query($sql);
-            $stmt->execute();
-            $user_array = $stmt->fetchAll(PDO::FETCH_OBJ);
+            $user_array = $this->userdao->searchUserRequest();
             return $response->withStatus(200)->withJson($user_array);
-        } catch (PDOException $e) {
-            echo json_encode($e->getMessage());
+        } catch (\Throwable $e) {
+            return $response->withJson(
+                [
+                    'json_errors' => json_last_error_msg(),
+                    'php_errors' => $e->getMessage(),
+                    'php_file' => $e->getFile() . ' ' . $e->getLine()
+                ],
+                400,
+                JSON_PRETTY_PRINT
+            );
         }
     }
 
