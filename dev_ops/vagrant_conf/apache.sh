@@ -10,9 +10,15 @@ sudo firewall-cmd --reload
 sudo systemctl enable httpd
 
 #config apache, make sure apache auto-boots
-sudo cp /vagrant/dev_ops/vagrant_conf/httpd.conf /etc/httpd/conf/httpd.conf
-sudo cp /vagrant/dev_ops/vagrant_conf/php.ini /etc/php.ini
+#sudo cp /vagrant/dev_ops/vagrant_conf/httpd.conf /etc/httpd/conf/httpd.conf
+#sudo cp /vagrant/dev_ops/vagrant_conf/php.ini /etc/php.ini
 sudo chkconfig httpd on
+
+
+echo "======== disable the firewall"
+#disable the firewall
+sudo service iptables stop
+sudo chkconfig iptables off
 
 sudo service httpd start
 echo "================= Apache Complete ================="
