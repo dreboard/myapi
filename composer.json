@@ -9,7 +9,8 @@
         "phpunit/php-code-coverage": "^5.2",
         "estahn/phpunit-json-assertions": "@stable",
         "codeception/codeception": "^2.3",
-        "brainmaestro/composer-git-hooks": "^2.2"
+        "brainmaestro/composer-git-hooks": "^2.2",
+        "squizlabs/php_codesniffer": "3.*"
     },
     "autoload": {
         "psr-4": {
@@ -29,10 +30,10 @@
     },
     "scripts": {
         "post-install-cmd": [
-            "dev_ops/composer/post-install.sh"
+            "../dev_ops/composer/post-install.sh"
         ],
         "post-update-cmd": [
-            "dev_ops/composer/post-install.sh"
+            "../dev_ops/composer/post-update.sh"
         ],
         "...": "..."
     },

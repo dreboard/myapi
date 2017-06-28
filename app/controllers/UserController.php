@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controllers;
 
 /**
@@ -61,10 +62,9 @@ class UserController extends \System\BaseController
     public function findUserRequest(Request $request, Response $response, $args)
     {
         try {
-
             $id = $this->user_service->validateStr($args['id']);
             viewdump($this->user_service->validateStr($args['id']));
-            if(!$id || false == is_numeric($id)){
+            if (!$id || false == is_numeric($id)) {
                 throw new \InvalidArgumentException($this->lang['invalid_id']);
             }
             $user = $this->userdao->findUserByID($id);
@@ -74,7 +74,7 @@ class UserController extends \System\BaseController
                 throw new \Exception($this->lang['valid_user']);
             }
         } catch (\Throwable $e) {
-	        $this->logger->error('API Exception', array('exception' => $e->getMessage()));
+            $this->logger->error('API Exception', array('exception' => $e->getMessage()));
             return $response->withJson(
                 [
                     'json_errors' => json_last_error_msg(),
@@ -145,19 +145,19 @@ class UserController extends \System\BaseController
      */
     public function addUserRequest(Request $request, Response $response)
     {
-	    if(false == $request->isPost()){
-		    $this->logger->info('API Message', array('methods' => 'invalid method'));
-		    return $response->withJson(
-			    [
-				    'json_errors'   => json_last_error_msg(),
-				    'php_errors'    => 'none',
-				    'php_file'      => __CLASS__.' '.__LINE__,
-				    'api_msg'       => 'Method must be POST'
-			    ],
-			    405,
-			    JSON_PRETTY_PRINT
-		    );
-	    }
+        if (false == $request->isPost()) {
+            $this->logger->info('API Message', array('methods' => 'invalid method'));
+            return $response->withJson(
+                [
+                    'json_errors' => json_last_error_msg(),
+                    'php_errors' => 'none',
+                    'php_file' => __CLASS__ . ' ' . __LINE__,
+                    'api_msg' => 'Method must be POST'
+                ],
+                405,
+                JSON_PRETTY_PRINT
+            );
+        }
         try {
             if ($this->userdao->insertUser($request->getParsedBody())) {
                 return $response->withStatus(201)->withJson([
@@ -170,7 +170,7 @@ class UserController extends \System\BaseController
                     'json_errors' => json_last_error_msg(),
                     'php_errors' => $e->getMessage(),
                     'php_file' => $e->getFile() . ' ' . $e->getLine(),
-                    'api_msg'       => 'None'
+                    'api_msg' => 'None'
                 ],
                 400,
                 JSON_PRETTY_PRINT
@@ -178,52 +178,52 @@ class UserController extends \System\BaseController
         }
     }
 
-	/**
-	 * Remove user by ID
-	 *
-	 * @param Request $request
-	 * @param Response $response
-	 * @param $args
-	 *
-	 * @internal 405 response sent to client
+    /**
+     * Remove user by ID
+     *
+     * @param Request $request
+     * @param Response $response
+     * @param $args
+     *
+     * @internal 405 response sent to client
      * @codeCoverageIgnore
-	 */
-	public function deleteUserRequest(Request $request, Response $response, $args)
-	{
-		if(false == $request->isDelete()){
-			return $response->withJson(
-				[
-					'json_errors'   => json_last_error_msg(),
-					'php_errors'    => 'none',
-					'php_file'      => __CLASS__.' '.__LINE__,
-					'api_msg'       => 'Method must be DELETE'
-				],
-				405,
-				JSON_PRETTY_PRINT
-			);
-		}
-		try {
-			$id = $args['id'];
-			if(!$id){
-				throw new \InvalidArgumentException($this->lang['invalid_id']);
-			}
-			$user = $this->userdao->findUserByID($id);
-			if ($user) {
-				return $response->withStatus(200)->withJson($user);
-			} else {
-				throw new \Exception($this->lang['valid_user']);
-			}
-		} catch (\Throwable $e) {
-			return $response->withStatus(201)->withJson(
-				[
-					'json_errors' => json_last_error_msg(),
-					'php_errors' => $e->getMessage(),
-					'php_file' => $e->getFile() . ' ' . $e->getLine(),
-					'api_msg'       => 'None'
-				],
-				400,
-				JSON_PRETTY_PRINT
-			);
-		}
-	}
+     */
+    public function deleteUserRequest(Request $request, Response $response, $args)
+    {
+        if (false == $request->isDelete()) {
+            return $response->withJson(
+                [
+                    'json_errors' => json_last_error_msg(),
+                    'php_errors' => 'none',
+                    'php_file' => __CLASS__ . ' ' . __LINE__,
+                    'api_msg' => 'Method must be DELETE'
+                ],
+                405,
+                JSON_PRETTY_PRINT
+            );
+        }
+        try {
+            $id = $args['id'];
+            if (!$id) {
+                throw new \InvalidArgumentException($this->lang['invalid_id']);
+            }
+            $user = $this->userdao->findUserByID($id);
+            if ($user) {
+                return $response->withStatus(200)->withJson($user);
+            } else {
+                throw new \Exception($this->lang['valid_user']);
+            }
+        } catch (\Throwable $e) {
+            return $response->withStatus(201)->withJson(
+                [
+                    'json_errors' => json_last_error_msg(),
+                    'php_errors' => $e->getMessage(),
+                    'php_file' => $e->getFile() . ' ' . $e->getLine(),
+                    'api_msg' => 'None'
+                ],
+                400,
+                JSON_PRETTY_PRINT
+            );
+        }
+    }
 }
