@@ -25,6 +25,10 @@ curl -sS https://getcomposer.org/installer | php
 #Move it to /usr/local/bin/
 sudo mv composer.phar /usr/local/bin/composer
 
-
+echo "================= Installing phpunit ================="
+wget https://phar.phpunit.de/phpunit-6.1.phar
+chmod +x phpunit-6.1.phar
+sudo mv phpunit-6.1.phar /usr/local/bin/phpunit
+phpunit --version
 echo "================= PHP Complete ================="
 
