@@ -1,9 +1,10 @@
 <?php
+
 namespace APITesting;
 require_once "../../vendor/autoload.php";
 
 use PHPUnit\Framework\{
-	TestCase
+    TestCase
 };
 use Slim\Http\Environment;
 use Slim\Http\Request;
@@ -19,43 +20,43 @@ use App\Controllers;
  * @example curl http://localhost/api/myapi/public/v1/users/by/1 -v
  * @example or by using the -d flag for posts
  */
-class UserControllerTest extends TestBase{
+class UserControllerTest extends TestBase
+{
 
-	protected $app;
+    protected $app;
 
-	public function setUp()
-	{
-		$this->app = new \Slim\App();
-		//$this->user = new UserController();
-	}
+    public function setUp()
+    {
+        $this->app = new \Slim\App();
+        //$this->user = new UserController();
+    }
 
-	public function testGetHomepageWithoutName()
-	{
-		try {
-			$response = $this->runApp('GET', '/v1/');
-			$this->assertEquals(201, $response->getStatusCode());
-			$this->assertContains('{"version":"v1.0"}', (string)$response->getBody());
-			$this->assertNotContains('Hello', (string)$response->getBody());
-		}
-		catch(\Exception $e) {
-			$this->fail();
-		}
-	}
+    public function testGetHomepageWithoutName()
+    {
+        try {
+            $response = $this->runApp('GET', '/v1/');
+            $this->assertEquals(201, $response->getStatusCode());
+            $this->assertContains('{"version":"v1.0"}', (string)$response->getBody());
+            $this->assertNotContains('Hello', (string)$response->getBody());
+        } catch (\Exception $e) {
+            $this->fail();
+        }
+    }
 
-	/**
-	 * Create new user test
-	 * for testing POST requests
-	 */
-	public function testfindUserRequest()
-	{
-		try {
-			$response = $this->runApp('GET', '/v1/users/by/1');
-			$this->assertEquals(200, $response->getStatusCode());
-		}
-		catch(\Exception $e) {
-			$this->fail();
-		}
-	}
+    /**
+     * Create new user test
+     * for testing POST requests
+     */
+    public function testfindUserRequest()
+    {
+        try {
+            $response = $this->runApp('GET', '/v1/users/by/1');
+            $this->assertEquals(200, $response->getStatusCode());
+        } catch (\Exception $e) {
+            $this->fail();
+        }
+    }
+
     /**
      * Create new user test
      * for testing POST requests
@@ -65,11 +66,11 @@ class UserControllerTest extends TestBase{
         try {
             $response = $this->runApp('GET', '/v1/users/by/1');
             $this->assertEquals(200, $response->getStatusCode());
-        }
-        catch(\Exception $e) {
+        } catch (\Exception $e) {
             $this->fail();
         }
     }
+
     /**
      * Create new user test
      * for tesing POST requests
@@ -85,29 +86,27 @@ class UserControllerTest extends TestBase{
             $this->assertEquals(201, $response->getStatusCode());
             $this->assertContains('{"status":"success","errors":"none"}', (string)$response->getBody());
 
-        }
-        catch(\Exception $e) {
+        } catch (\Exception $e) {
             $this->fail();
         }
     }
 
-	/**
-	 * Ensure that a get controller method
-	 * returns a 405 error when using POST
-	 * for a method expecting a GET request
+    /**
+     * Ensure that a get controller method
+     * returns a 405 error when using POST
+     * for a method expecting a GET request
      *
-	 *
-	 */
-	public function testGetUserFailWrongMethod()
-	{
-		try {
-			$response = $this->runApp('POST', '/v1/users/by/1');
-			$this->assertEquals(405, $response->getStatusCode());
-			$data = json_decode($response->getBody(true), true);
-			$this->assertArrayHasKey('method_error', $data);
-		}
-		catch(\Exception $e) {
-			$this->fail();
-		}
-	}
+     *
+     */
+    public function testGetUserFailWrongMethod()
+    {
+        try {
+            $response = $this->runApp('POST', '/v1/users/by/1');
+            $this->assertEquals(405, $response->getStatusCode());
+            $data = json_decode($response->getBody(true), true);
+            $this->assertArrayHasKey('method_error', $data);
+        } catch (\Exception $e) {
+            $this->fail();
+        }
+    }
 }

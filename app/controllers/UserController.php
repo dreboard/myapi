@@ -63,7 +63,7 @@ class UserController extends \System\BaseController
     {
         try {
             $id = $this->user_service->validateStr($args['id']);
-            viewdump($this->user_service->validateStr($args['id']));
+            //viewdump($this->user_service->validateStr($args['id']));
             if (!$id || false == is_numeric($id)) {
                 throw new \InvalidArgumentException($this->lang['invalid_id']);
             }
