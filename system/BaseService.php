@@ -4,6 +4,7 @@ namespace System;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\FirePHPHandler;
+use App\Helpers\{DateHelper, ArrayHelper};
 
 /**
  * Class BaseService
@@ -11,6 +12,7 @@ use Monolog\Handler\FirePHPHandler;
  */
 class BaseService {
 
+	use DateHelper, ArrayHelper;
     /**
      * @var $container
      */
@@ -40,6 +42,4 @@ class BaseService {
         $this->container = $c;
         $this->lang = require __DIR__ . '/../config/lang.php';
     }
-
-
 }

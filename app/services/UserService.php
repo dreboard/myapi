@@ -5,7 +5,7 @@ use System\BaseService;
 use \App\Models\{
     User, UserDAO
 };
-use App\Helpers\DateHelper;
+
 
 /**
  * Class UserService
@@ -17,7 +17,6 @@ use App\Helpers\DateHelper;
  */
 class UserService extends BaseService
 {
-    use DateHelper;
 
     protected const MIN_ACCOUNT_NUM = 1901;
 
