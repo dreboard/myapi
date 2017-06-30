@@ -29,13 +29,7 @@
         "files": ["config/environment.php", "config/constants.php", "config/config.php", "config/functions.php", "unit_tests/TestBase.php"]
     },
     "scripts": {
-        "post-install-cmd": [
-            "../dev_ops/composer/post-install.sh"
-        ],
-        "post-update-cmd": [
-            "../dev_ops/composer/post-update.sh"
-        ],
-        "...": "..."
+
     },
 
     "extra": {
