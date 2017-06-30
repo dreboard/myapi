@@ -1,29 +1,29 @@
 <?php
 return [
-	'settings' => [
+    'settings' => [
         'determineRouteBeforeAppMiddleware' => false,
         'outputBuffering' => false,
         'displayErrorDetails' => true,
 
-		// Renderer settings
+        // Renderer settings
 
-		// Monolog settings
+        // Monolog settings
         'logger' => [
-	        'name' => 'app',
-	        'path' => __DIR__ . '/../logs/app.log',
+            'name' => 'app',
+            'path' => __DIR__ . '/../logs/app.log',
         ],
-		// Database connection settings
+        // Database connection settings
         'db' => [
             'driver' => 'mysqli',
             'host' => '52.168.135.130',
             'database' => 'incentis_members_test',
             'username' => 'incentis_app',
             'password' => 'DQJG!KaW+qrsHh7=',
-            'charset'   => 'utf8',
+            'charset' => 'utf8',
             'collation' => 'utf8_unicode_ci',
-            'prefix'    => '',
+            'prefix' => '',
         ],
-	],
+    ],
 ];
 
 /*return [

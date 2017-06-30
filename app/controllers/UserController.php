@@ -160,6 +160,7 @@ class UserController extends \System\BaseController
         }
         try {
             if ($this->userdao->insertUser($request->getParsedBody())) {
+                /** @noinspection PhpUndefinedMethodInspection */
                 return $response->withStatus(201)->withJson([
                     'status' => 'success',
                     'errors' => 'none']);

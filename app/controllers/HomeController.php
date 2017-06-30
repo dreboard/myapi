@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Controllers;
+
 /**
  * MyAPI user class.
  *
@@ -17,20 +19,27 @@ use \PDO;
 use \PDOException;
 use \App\Models\User;
 
-class HomeController extends \System\BaseController{
-
-    public function __construct(){}
+class HomeController extends \System\BaseController
+{
 
     /**
-	 * @param Request $request
-	 * @param Response $response
-	 *
-	 * @internal param int $id
-	 */
-	public function get_version(Request $request, Response $response) {
-		return $response->withStatus( 201 )
-		                ->withHeader( 'Content-Type', 'application/json' )
-		                ->write( json_encode( [ 'version' => 'v1.0' ] ) );
-	}
+     * HomeController constructor.
+     */
+    public function __construct()
+    {
+    }
+
+    /**
+     * @param Request $request
+     * @param Response $response
+     *
+     * @internal param int $id
+     */
+    public function get_version(Request $request, Response $response)
+    {
+        return $response->withStatus(201)
+            ->withHeader('Content-Type', 'application/json')
+            ->write(json_encode(['version' => 'v1.0']));
+    }
 
 }
