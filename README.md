@@ -19,6 +19,7 @@ You can use this system on any computer that can run the following software, it'
 ####The base box was built with virtualbox 5.1.18 / vagrant 1.9.2
 
 ## Components
+
 - This will run the default webserver with the default php modules we need installed.
 
 |Script               |Name|Version|Repo|Description|
@@ -35,15 +36,18 @@ You can use this system on any computer that can run the following software, it'
 There will be more modules to follow as we develop this shell.
 
 ####Composer
+
 A git hook was installed to update the require and require -dev sections.  If these do not upload on the initial pull please run 
 
 `php composer.phar install`
 
 
 ####PHPStorm vagrant setup
+
 - [Configuring a remote PHP interpreter in a Vagrant environment ](https://www.jetbrains.com/help/phpstorm/configuring-remote-php-interpreters.html)
 
 ####PHPed
+
 Good luck..................
 
 
