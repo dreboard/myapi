@@ -36,18 +36,17 @@ You can use this system on any computer that can run the following software, it'
 There will be more modules to follow as we develop this shell.
 
 #### Composer
-
-A git hook was installed to update the require and require -dev sections.  If these do not upload on the initial pull please run 
-
-`php composer.phar install`
+- Inside the assets folder move the two scripts post-merge/post-receive into the git/hooks folder
+- These hooks will install updates and run the autoloader on git pull
+- Then run `php composer.phar install`
 
 
 #### PHPStorm vagrant setup
 
 - [Configuring a remote PHP interpreter in a Vagrant environment ](https://www.jetbrains.com/help/phpstorm/configuring-remote-php-interpreters.html)
-
+- [Using Composer Dependency Manager](https://www.jetbrains.com/help/phpstorm/using-composer-dependency-manager.html)
 #### PHPed
+All commands will have to be run from the terminal, see each component (phpunit, composer, ...) for the correct commands
 
-Good luck..................
 
 
