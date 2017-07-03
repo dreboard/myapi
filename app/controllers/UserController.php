@@ -79,7 +79,8 @@ class UserController extends \System\BaseController
                 [
                     'json_errors' => json_last_error_msg(),
                     'php_errors' => $e->getMessage(),
-                    'php_file' => $e->getFile() . ' ' . $e->getLine()
+                    'php_file' => $e->getFile() . ' ' . $e->getLine(),
+                    'api_msg' => ''
                 ],
                 200,
                 JSON_PRETTY_PRINT
@@ -103,7 +104,8 @@ class UserController extends \System\BaseController
                 [
                     'json_errors' => json_last_error_msg(),
                     'php_errors' => $e->getMessage(),
-                    'php_file' => $e->getFile() . ' ' . $e->getLine()
+                    'php_file' => $e->getFile() . ' ' . $e->getLine(),
+                    'api_msg' => 'Method must be POST'
                 ],
                 400,
                 JSON_PRETTY_PRINT
@@ -127,7 +129,8 @@ class UserController extends \System\BaseController
                 [
                     'json_errors' => json_last_error_msg(),
                     'php_errors' => $e->getMessage(),
-                    'php_file' => $e->getFile() . ' ' . $e->getLine()
+                    'php_file' => $e->getFile() . ' ' . $e->getLine(),
+                    'api_msg' => ''
                 ],
                 400,
                 JSON_PRETTY_PRINT
@@ -152,7 +155,7 @@ class UserController extends \System\BaseController
                     'json_errors' => json_last_error_msg(),
                     'php_errors' => 'none',
                     'php_file' => __CLASS__ . ' ' . __LINE__,
-                    'api_msg' => 'Method must be POST'
+                    'api_msg' => ''
                 ],
                 405,
                 JSON_PRETTY_PRINT

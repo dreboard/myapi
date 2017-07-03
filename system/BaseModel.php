@@ -7,14 +7,13 @@ use PDO;
  * Class BaseModel
  * @package System
  * @subpackage  Models
- * @author      Andre Board
  * @since       v0.1.0
  */
 class BaseModel {
 	/**
 	 * @var PDO
 	 */
-	protected $dsn;
+	protected $db;
 	/**
 	 * @var mixed
 	 */
@@ -33,7 +32,7 @@ class BaseModel {
 		$this->lang = require __DIR__ . '/../config/lang.php';
 		$this->config = require __DIR__.'/../src/settings.php';
         try{
-            $this->dsn = new \PDO(
+            $this->db = new \PDO(
                 "mysql:host={$this->config['settings']['db']['host']};dbname={$this->config['settings']['db']['database']}",
                 $this->config['settings']['db']['username'],
                 $this->config['settings']['db']['password']);

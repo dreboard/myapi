@@ -21,6 +21,7 @@
                 "app/models/dao"
             ],
             "App\\Helpers\\": "app/helpers/",
+            "App\\Components\\": "components/",
             "System\\": "system/"
         },
         "autoload-dev": {

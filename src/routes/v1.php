@@ -6,7 +6,7 @@ $app->group('/v1', function () use ($app) {
             ->withHeader('Content-Type', 'application/json')
             ->withHeader('Vary', 'Accept-Encoding')
             ->withHeader('Link', '<http://www.site.ch/TheBook/chapter2>; rel="Previous"')
-            ->write(json_encode(['version' => 'v1.0']));
+            ->write(json_encode(['version' => 'v'.App\Components\GitTags::getCurrentTag()['major']]));
     });
 
     $app->group('/users', function () {

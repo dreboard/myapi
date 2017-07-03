@@ -50,7 +50,7 @@ class UserDAO extends BaseModel{
     public function searchUserRequest()
     {
         try {
-            $query = $this->dsn->prepare($this->sql['select']['all']);
+            $query = $this->db->prepare($this->sql['select']['all']);
             $query->execute();
             return $query->fetchAll(PDO::FETCH_OBJ);
         } catch (PDOException $e) {
@@ -65,7 +65,7 @@ class UserDAO extends BaseModel{
      */
     public function findUserByID(int $id) {
         try {
-            $sth = $this->dsn->prepare($this->sql['select']['by_id']);
+            $sth = $this->db->prepare($this->sql['select']['by_id']);
             $sth->bindParam(":id", $id, PDO::PARAM_INT);
             $sth->execute();
             return $sth->fetch(PDO::FETCH_ASSOC);
@@ -83,7 +83,7 @@ class UserDAO extends BaseModel{
 	public function insertUser( array $input )
     {
 		try {
-			$stmt = $this->dsn->prepare( $this->sql['insert']['new_user'] );
+			$stmt = $this->db->prepare( $this->sql['insert']['new_user'] );
 			$stmt->bindParam( ":first", $input['first'], PDO::PARAM_STR );
 			$stmt->bindParam( ":last", $input['last'], PDO::PARAM_STR );
             $stmt->bindParam( ":password", $input['password'], PDO::PARAM_STR );
@@ -103,7 +103,7 @@ class UserDAO extends BaseModel{
      */
     public function deleteUserByID(int $id) {
         try {
-            $sth = $this->dsn->prepare($this->sql['select']['by_id']);
+            $sth = $this->db->prepare($this->sql['select']['by_id']);
             $sth->bindParam(":id", $id, PDO::PARAM_INT);
             $sth->execute();
             return $sth->fetch(PDO::FETCH_ASSOC);
@@ -120,7 +120,7 @@ class UserDAO extends BaseModel{
      */
     public function editUserByID($array) {
         try {
-            $sth = $this->dsn->prepare($this->sql['select']['by_id']);
+            $sth = $this->db->prepare($this->sql['select']['by_id']);
             $sth->bindParam(":id", $id, PDO::PARAM_INT);
             $sth->execute();
             return $sth->fetch(PDO::FETCH_ASSOC);
