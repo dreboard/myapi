@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use System\BaseModel;
@@ -14,8 +15,8 @@ use PDO, PDOException, PDOStatement;
  * @since       v0.1.0
  *
  */
-
-class UserDAO extends BaseModel{
+class UserDAO extends BaseModel
+{
 
     protected $sql = [
         "insert" =>
@@ -36,10 +37,10 @@ class UserDAO extends BaseModel{
     /**
      * UserDAO constructor.
      */
-    public function __construct(  )
+    public function __construct()
     {
-		parent::__construct();
-	}
+        parent::__construct();
+    }
 
     /**
      * Find all users
@@ -57,57 +58,42 @@ class UserDAO extends BaseModel{
             return json_encode($e->getMessage());
         }
     }
+
     /**
      * Find user by user_id
      *
      * @param $id
      * @return mixed
      */
-    public function findUserByID(int $id) {
+    public function findUserByID(int $id)
+    {
         try {
             $sth = $this->db->prepare($this->sql['select']['by_id']);
             $sth->bindParam(":id", $id, PDO::PARAM_INT);
             $sth->execute();
             return $sth->fetch(PDO::FETCH_ASSOC);
-        } catch ( PDOException $e ) {
+        } catch (PDOException $e) {
             return $e->getMessage();
         }
     }
 
-	/**
+    /**
      * Insert new user
      *
-	 * @param array $input
-	 * @return bool|string
-	 */
-	public function insertUser( array $input )
-    {
-		try {
-			$stmt = $this->db->prepare( $this->sql['insert']['new_user'] );
-			$stmt->bindParam( ":first", $input['first'], PDO::PARAM_STR );
-			$stmt->bindParam( ":last", $input['last'], PDO::PARAM_STR );
-            $stmt->bindParam( ":password", $input['password'], PDO::PARAM_STR );
-			$stmt->bindParam( ":email", $input['email'], PDO::PARAM_STR );
-			$stmt->execute();
-			return true;
-		} catch ( PDOException $e ) {
-			return $e->getMessage();
-		}
-	}
-
-    /**
-     * Find user by user_id
-     *
-     * @param $id
-     * @return mixed
+     * @param array $input
+     * @return bool|string
      */
-    public function deleteUserByID(int $id) {
+    public function insertUser(array $input)
+    {
         try {
-            $sth = $this->db->prepare($this->sql['select']['by_id']);
-            $sth->bindParam(":id", $id, PDO::PARAM_INT);
-            $sth->execute();
-            return $sth->fetch(PDO::FETCH_ASSOC);
-        } catch ( PDOException $e ) {
+            $stmt = $this->db->prepare($this->sql['insert']['new_user']);
+            $stmt->bindParam(":first", $input['first'], PDO::PARAM_STR);
+            $stmt->bindParam(":last", $input['last'], PDO::PARAM_STR);
+            $stmt->bindParam(":password", $input['password'], PDO::PARAM_STR);
+            $stmt->bindParam(":email", $input['email'], PDO::PARAM_STR);
+            $stmt->execute();
+            return true;
+        } catch (PDOException $e) {
             return $e->getMessage();
         }
     }
@@ -118,13 +104,32 @@ class UserDAO extends BaseModel{
      * @param $id
      * @return mixed
      */
-    public function editUserByID($array) {
+    public function deleteUserByID(int $id)
+    {
         try {
             $sth = $this->db->prepare($this->sql['select']['by_id']);
             $sth->bindParam(":id", $id, PDO::PARAM_INT);
             $sth->execute();
             return $sth->fetch(PDO::FETCH_ASSOC);
-        } catch ( PDOException $e ) {
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
+
+    /**
+     * Find user by user_id
+     *
+     * @param $id
+     * @return mixed
+     */
+    public function editUserByID($array)
+    {
+        try {
+            $sth = $this->db->prepare($this->sql['select']['by_id']);
+            $sth->bindParam(":id", $id, PDO::PARAM_INT);
+            $sth->execute();
+            return $sth->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
             return $e->getMessage();
         }
     }

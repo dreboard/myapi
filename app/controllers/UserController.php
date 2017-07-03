@@ -62,17 +62,9 @@ class UserController extends \System\BaseController
     public function findUserRequest(Request $request, Response $response, $args)
     {
         try {
-            $id = $this->user_service->validateStr($args['id']);
-            //viewdump($this->user_service->validateStr($args['id']));
-            if (!$id || false == is_numeric($id)) {
-                throw new \InvalidArgumentException($this->lang['invalid_id']);
-            }
-            $user = $this->userdao->findUserByID($id);
-            if ($user) {
-                return $response->withStatus(200)->withJson($user);
-            } else {
-                throw new \Exception($this->lang['valid_user']);
-            }
+            $user_array = $this->user_service->getUser($args['id']);
+            return $response->withStatus(200)->withJson($user_array);
+
         } catch (\Throwable $e) {
             $this->logger->error('API Exception', array('exception' => $e->getMessage()));
             return $response->withJson(
