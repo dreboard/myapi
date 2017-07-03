@@ -1,18 +1,22 @@
 <?php
+
 namespace System;
 
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\FirePHPHandler;
-use App\Helpers\{DateHelper, ArrayHelper};
+use App\Helpers\{
+    DateHelper, ArrayHelper
+};
 
 /**
  * Class BaseService
  * @package System
  */
-class BaseService {
+class BaseService
+{
 
-	use DateHelper, ArrayHelper;
+    use DateHelper, ArrayHelper;
     /**
      * @var $container
      */
@@ -31,13 +35,12 @@ class BaseService {
     /**
      * BaseService constructor.
      *
-     * @param $c
+     * @param $c  "instance of global container"
      */
     public function __construct($c = null)
     {
         $this->logger = new Logger('api_logger');
-        $this->logger->pushHandler(new StreamHandler(
-            __DIR__.'/../logs/app.log', Logger::DEBUG));
+        $this->logger->pushHandler(new StreamHandler(__DIR__ . '/../logs/app.log', Logger::DEBUG));
         $this->logger->pushHandler(new FirePHPHandler());
         $this->container = $c;
         $this->lang = require __DIR__ . '/../config/lang.php';
