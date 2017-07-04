@@ -1,0 +1,7 @@
+[Tue Jun 27 21:51:38.201384 2017] [authz_core:error] [pid 12530] [client 10.0.2.2:64297] AH01630: client denied by server configuration: /vagrant/public/
+[Tue Jun 27 21:51:38.302588 2017] [authz_core:error] [pid 12530] [client 10.0.2.2:64297] AH01630: client denied by server configuration: /vagrant/public/noindex, referer: http://localhost:8008/noindex/css/open-sans.css
+[Tue Jun 27 21:51:38.341931 2017] [authz_core:error] [pid 12530] [client 10.0.2.2:64297] AH01630: client denied by server configuration: /vagrant/public/noindex, referer: http://localhost:8008/noindex/css/open-sans.css
+[Tue Jun 27 21:51:38.363997 2017] [authz_core:error] [pid 12526] [client 10.0.2.2:64298] AH01630: client denied by server configuration: /vagrant/public/noindex, referer: http://localhost:8008/noindex/css/open-sans.css
+[Tue Jun 27 21:51:38.365016 2017] [authz_core:error] [pid 12530] [client 10.0.2.2:64297] AH01630: client denied by server configuration: /vagrant/public/noindex, referer: http://localhost:8008/noindex/css/open-sans.css
+[Tue Jun 27 22:20:12.919637 2017] [authz_core:error] [pid 12529] [client 10.0.2.2:64862] AH01630: client denied by server configuration: /vagrant/public/vagrant
+[Tue Jun 27 22:20:22.061536 2017] [authz_core:error] [pid 12533] [client 10.0.2.2:64863] AH01630: client denied by server configuration: /vagrant/public/vagrant

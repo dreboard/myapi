@@ -7,9 +7,7 @@ namespace App\Models;
  *
  * @package     MyAPI\Application
  * @subpackage  Models
- * @author      Andre Board
- * @version     v0.1.0
- * @since       0.1.0
+ * @since       v0.1.0
  *
  */
 
