@@ -14,10 +14,10 @@
 # include
 
 echo "Installing Apache"
-yum install -y httpd
+sudo yum install -y httpd
 
 echo "Adding Apache service to autostart"
-systemctl enable httpd.service
+sudo systemctl enable httpd.service
 
 # replace the user/group of apache
 sed -i 's/User apache/User vagrant/i' /etc/httpd/conf/httpd.conf
@@ -31,10 +31,10 @@ sed -i '/<Directory "\/var\/www\/html">/,/<\/Directory>/ { s/AllowOverride None/
 
 if [ -d /var/lib/php/session ]
 then
-	chown -R vagrant: /var/lib/php/session
+	sudo chown -R vagrant: /var/lib/php/session
 fi
 
 echo "Starting httpd service"
-systemctl restart httpd.service
+sudo systemctl restart httpd.service
 
 echo "Apache installed"

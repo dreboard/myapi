@@ -1,7 +1,7 @@
 <?php
 
 namespace APITesting;
-require_once "../../vendor/autoload.php";
+//require_once "../../vendor/autoload.php";
 
 use PHPUnit\Framework\{
     TestCase
@@ -31,13 +31,16 @@ class UserControllerTest extends TestBase
         //$this->user = new UserController();
     }
 
-    public function testGetHomepageWithoutName()
+	/**
+	 *
+	 */
+	public function testGetHomepageWithoutName()
     {
         try {
             $response = $this->runApp('GET', '/v1/');
-            $this->assertEquals(201, $response->getStatusCode());
-            $this->assertContains('{"version":"v1.0"}', (string)$response->getBody());
-            $this->assertNotContains('Hello', (string)$response->getBody());
+            $this->assertEquals(200, $response->getStatusCode());
+            $this->assertContains('{"version":"v0"}', (string)$response->getBody());
+            $this->assertNotContains('{"client_error":"404 Page not found"}', (string)$response->getBody());
         } catch (\Exception $e) {
             $this->fail();
         }
@@ -52,6 +55,7 @@ class UserControllerTest extends TestBase
         try {
             $response = $this->runApp('GET', '/v1/users/by/1');
             $this->assertEquals(200, $response->getStatusCode());
+	        $this->assertNotContains('{"client_error":"404 Page not found"}', (string)$response->getBody());
         } catch (\Exception $e) {
             $this->fail();
         }
@@ -66,6 +70,7 @@ class UserControllerTest extends TestBase
         try {
             $response = $this->runApp('GET', '/v1/users/by/1');
             $this->assertEquals(200, $response->getStatusCode());
+	        $this->assertNotContains('{"client_error":"404 Page not found"}', (string)$response->getBody());
         } catch (\Exception $e) {
             $this->fail();
         }

@@ -8,16 +8,12 @@ PROJECTFOLDER='./'
 PROJECTNAME='my_api'
 DBUSER='root'
 
-
 # update / upgrade
 sudo apt-get update
 sudo apt-get -y upgrade
 
 # install apache 2.5 and php 7
 sudo apt-get install -y apache2
-
-
-
 
 ##########################################################
 #				Install PHP
@@ -75,7 +71,8 @@ mysql -uroot -p$DBPASSWD -e "grant all privileges on $DBNAME.* to '$DBUSER'@'loc
 sudo chmod -R 755 /var/www
 sudo mkdir "/var/www/$PROJECTNAME"
 sudo mkdir "/var/www/$PROJECTNAME/logs"
-
+sudo mkdir "/var/www/$PROJECTNAME/logs/apache"
+sudo mkdir "/var/www/$PROJECTNAME/logs/php"
 # setup hosts file
 VHOST=$(cat <<EOF
 <VirtualHost *:80>
@@ -112,7 +109,7 @@ sudo a2enmod rewrite
 curl -s https://getcomposer.org/installer | php
 mv composer.phar /usr/local/bin/composer
 
-sudo apt-get -y install curl git
+sudo apt-get -y install curl git nano
 
 sudo apt-get install snmp
 
@@ -120,6 +117,22 @@ sudo apt-get install snmp
 sudo apt-get -y install libapache2-mod-php7.1
 sudo a2dismod php5
 sudo a2enmod php7.1
-sudo apt-get autoremove
+
+
+echo -e "\n--- Install Jenkins ---\n"
+#commands
+#sudo service jenkins start
+#sudo service jenkins restart
+
+#https://pkg.jenkins.io/debian-stable/
+wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
+#Then add the following entry in your /etc/apt/sources.list:
+echo "deb https://pkg.jenkins.io/debian-stable binary/" | sudo tee -a /etc/apt/sources.list
+sudo add-apt-repository ppa:webupd8team/java -y
+sudo apt install -y oracle-java8-set-default
+sudo apt-get install -y oracle-java8-installer
+sudo apt-get install -y jenkins
+
+sudo apt-get -y autoremove
 
 service apache2 restart

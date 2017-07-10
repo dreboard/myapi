@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+PASSWORD=''
+DB_NAME='api'
+DATABASE_FOLDER='./assets'
+FILENAME='users.sql'
 
 echo "WARNING: This script should only be used on local development environments
 as it removes the root password and disables minimum password strength enforcement"
@@ -63,7 +67,7 @@ DB_FILES=/vagrant/$DATABASE_FOLDER/*.sql
 shopt -s nullglob
 for file in $DB_FILES
 do
-	DB_NAME=`basename $file .sql`
+	DB_NAME=`basename $file.sql`
 	echo "Creating database '$DB_NAME'"
 	# Drop the DB so that we can run the provisioner on a machine that already has had it run once
 	mysql -u root <<< "DROP DATABASE IF EXISTS \`$DB_NAME\`; CREATE DATABASE IF NOT EXISTS \`$DB_NAME\`;"

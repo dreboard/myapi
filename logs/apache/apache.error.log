@@ -1,0 +1,3 @@
+[Sun Jul 09 23:59:05.560897 2017] [core:error] [pid 5690] [client 10.0.2.2:61960] AH00126: Invalid URI in request GET /../~version HTTP/1.1
+[Mon Jul 10 00:00:21.829400 2017] [core:error] [pid 5677] [client 10.0.2.2:61978] AH00126: Invalid URI in request GET /../~version HTTP/1.1
+[Mon Jul 10 00:00:32.012353 2017] [core:error] [pid 5678] [client 10.0.2.2:61981] AH00126: Invalid URI in request GET /../~version HTTP/1.1

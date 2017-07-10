@@ -2,11 +2,7 @@
 $app->group('/v1', function () use ($app) {
 
     $this->get("/", function ($request, $response, $args) {
-        return $response->withStatus(201)
-            ->withHeader('Content-Type', 'application/json')
-            ->withHeader('Vary', 'Accept-Encoding')
-            ->withHeader('Link', '<http://www.site.ch/TheBook/chapter2>; rel="Previous"')
-            ->write(json_encode(['version' => 'v'.App\Components\GitTags::getCurrentTag()['major']]));
+        return $response->withJson(['version' => 'v0']);
     });
 
     $app->group('/users', function () {
