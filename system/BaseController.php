@@ -5,6 +5,7 @@ use \Interop\Container\ContainerInterface as ContainerInterface;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\FirePHPHandler;
+use App\Helpers\RouteHelper;
 /**
  * Class BaseController
  * @package System
