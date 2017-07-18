@@ -19,6 +19,7 @@ namespace App\Controllers;
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 use \System\BaseController;
+use App\Components\GoogleAnalytics;
 use \PDO;
 use \PDOException;
 use \PDOStatement;
@@ -46,5 +47,22 @@ class RouteController extends BaseController
         );
     }
 
+    /**
+     * @param Request $request
+     * @param Response $response
+     * @param $args
+     * @return mixed
+     */
+    public function routeDetails(Request $request, Response $response, $args)
+    {
+        $uri = $request->getUri();
+        $path = $uri->getPath();
+        $user_agent = $request->getHeaderLine('User-Agent');
+        $ip = 23435252;
+        $user_array = ["{$path}", "{$user_agent}", "{$ip}", ""];
+
+        GoogleAnalytics::gaSendData($path, $user_agent);
+        return $response->withStatus(200)->withJson($user_array);
+    }
 
 }

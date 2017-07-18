@@ -62,13 +62,7 @@ class UserController extends \System\BaseController
      */
     public function findUserRequest(Request $request, Response $response, $args)
     {
-	    $path = $request->getHeaderLine('GET');
-	    $user_agent = $request->getHeaderLine('User-Agent');
-	    $ip = 23435252;
-    	$user_array =["{$path}", "{$user_agent}" , "{$ip}"] ;
-	    return $response->withStatus(200)->withJson($user_array);
         try {
-        	GoogleAnalytics::gaSendData( $data, $request->getHeader('User-Agent') );
             $user_array = $this->user_service->getUser($args['id']);
             return $response->withStatus(200)->withJson($user_array);
 

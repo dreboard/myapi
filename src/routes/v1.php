@@ -5,6 +5,9 @@ $app->group('/v1', function () use ($app) {
         return $response->withJson(['version' => 'v0']);
     });
 
+    $app->group('/route', function () {
+        $this->get('/', '\App\Controllers\RouteController:routeDetails');
+    });
     $app->group('/users', function () {
         $this->get('/get_users', '\App\Controllers\UserController:get_users');
         $this->get('/by/{id:[0-9]+}', '\App\Controllers\UserController:findUserRequest');
@@ -12,4 +15,4 @@ $app->group('/v1', function () use ($app) {
         $this->post('/add_user', '\App\Controllers\UserController:addUserRequest');
         $this->map(['GET', 'POST'], '/all', '\App\Controllers\UserController:getAllUsers');
     });
-});
+})->add( new App\Middleware\ExampleMiddleware());
