@@ -4,7 +4,7 @@ echo "==========================================================================
 echo " "
 echo " "
 
-DBNAME='wordpress'
+DBNAME='api'
 PASSWORD='1234'
 DBUSER='root'
 
@@ -22,10 +22,21 @@ sudo debconf-set-selections <<< "phpmyadmin phpmyadmin/mysql/app-pass password $
 sudo debconf-set-selections <<< "phpmyadmin phpmyadmin/reconfigure-webserver multiselect apache2"
 sudo apt-get -y install phpmyadmin
 
-echo -e "\n--- Setting up our MySQL user and db ---\n"
-mysql -uroot -p$PASSWORD -e "CREATE DATABASE $DBNAME" >> /vagrant/vm_build.log 2>&1
-mysql -uroot -p$PASSWORD -e "grant all privileges on $DBNAME.* to '$DBUSER'@'localhost' identified by '$PASSWORD'" > /vagrant/vm_build.log 2>&1
 
+echo "================= Create Database and install SQL Dumps ================="
+ RESULT=`mysql -u$DBUSER -p$PASSWORD -e "SHOW DATABASES" | grep -Fo $DBNAME`
+ if [ "$RESULT" == "$DBNAME" ]; then
+    echo "---------------- Database exist"
+ else
+    echo -e "\n--- Setting up our MySQL user and db ---\n"
+    mysql -uroot -p$PASSWORD -e "CREATE DATABASE $DBNAME" >> /vagrant/vm_build.log 2>&1
+    mysql -uroot -p$PASSWORD -e "grant all privileges on $DBNAME.* to '$DBUSER'@'localhost' identified by '$PASSWORD'" > /vagrant/vm_build.log 2>&1
+
+    echo "---------------- Installing dump"
+    mysql -u$DBUSER -p$PASSWORD $DBNAME < /vagrant/assets/dumps/api.sql
+ fi
+
+#mysql -u$DBUSER -p$PASSWORD $DBNAME < /vagrant/assets/dumps/api.sql
 sudo /etc/init.d/apache2 restart
 
 echo " "
