@@ -10,6 +10,7 @@ namespace App\Controllers;
  *
  */
 use App\Components\GoogleAnalytics;
+use MyApiCore\System\BaseController;
 use App\Services\UserService;
 use \Interop\Container\ContainerInterface as ContainerInterface;
 use \Psr\Http\Message\ServerRequestInterface as Request;
@@ -23,7 +24,7 @@ use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\FirePHPHandler;
 
-class UserController extends \System\BaseController
+class UserController extends BaseController
 {
 
 
@@ -67,7 +68,7 @@ class UserController extends \System\BaseController
             return $response->withStatus(200)->withJson($user_array);
 
         } catch (\Throwable $e) {
-            $this->logger->error('API Exception', array('exception' => $e->getMessage()));
+            //$this->logger->error('API Exception', array('exception' => $e->getMessage()));
             return $response->withJson(
                 [
                     'json_errors' => json_last_error_msg(),

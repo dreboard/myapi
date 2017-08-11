@@ -3,7 +3,7 @@
  * DIC configuration
  */
 $container = $app->getContainer();
-
+//print_r(class_implements(get_class($container))); die;
 $container['errorHandler'] = function ($container) {
     return function ($request, $response, $exception) use ($container) {
         return $container['response']->withStatus(500)
@@ -74,10 +74,10 @@ $container['orm'] = function ($container) use($capsule) {
 
 
 $container['BaseModel'] = function() use ($container){
-	return new \System\BaseModel($container->get('dsn'));
+	return new \MyApiCore\System\BaseModel();
 };
 
 
-$container['BaseController'] = function(){
-	return new \System\BaseController();
+$container['BaseController'] = function() use ($container){
+	return new \MyApiCore\System\BaseController($container);
 };

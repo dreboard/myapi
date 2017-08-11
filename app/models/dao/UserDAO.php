@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use System\BaseModel;
+use \MyApiCore\System\BaseModel;
 use PDO, PDOException, PDOStatement;
 
 /**
