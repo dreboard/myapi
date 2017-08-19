@@ -6,7 +6,7 @@ $app->group('/v1', function () use ($app) {
 	//$app->add(new RKA\Middleware\IpAddress());
 
     $this->get("/", function ($request, $response, $args) {
-        return $response->withJson(['version' => 'v0', 'environment' => 'test']);
+        return $response->withJson(['version' => 'v0', 'environment' => $_SERVER['APPLICATION_ENV']]);
     });
 
     $app->group('/route', function () {
