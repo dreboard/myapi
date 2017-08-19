@@ -57,7 +57,7 @@ abstract class GoogleAnalytics extends BaseComponent
         try {
             $data = array(
                 'v' => 1,
-                'tid' => self::TRACKING_ID,
+                'tid' => TRACKING_CODE,
                 'cid' => self::gen_uuid(),
                 't' => 'pageview'
             );
@@ -99,7 +99,7 @@ abstract class GoogleAnalytics extends BaseComponent
     {
         $data = array(
             'v' => 1,
-            'tid' => 'UA-000000-1', //@TODO: Change this to your Google Analytics Tracking ID.
+            'tid' => TRACKING_CODE, //@TODO: Change this to your Google Analytics Tracking ID.
             'cid' => gaParseCookie(),
             't' => 'pageview',
             'dh' => $hostname, //Document Hostname "gearside.com"
@@ -120,7 +120,7 @@ abstract class GoogleAnalytics extends BaseComponent
     {
         $data = array(
             'v' => 1,
-            'tid' => 'UA-000000-1', //@TODO: Change this to your Google Analytics Tracking ID.
+            'tid' => TRACKING_CODE, //@TODO: Change this to your Google Analytics Tracking ID.
             'cid' => gaParseCookie(),
             't' => 'event',
             'ec' => $category, //Category (Required)

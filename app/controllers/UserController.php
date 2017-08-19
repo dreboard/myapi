@@ -9,8 +9,8 @@ namespace App\Controllers;
  * @since       v0.1.0
  *
  */
-use App\Components\GoogleAnalytics;
-use MyApiCore\System\BaseController;
+use App\Components\GoogleAnalytics as GA;
+use MyApiCore\System\{BaseController, GoogleAnalytics};
 use App\Services\UserService;
 use \Interop\Container\ContainerInterface as ContainerInterface;
 use \Psr\Http\Message\ServerRequestInterface as Request;
@@ -54,6 +54,17 @@ class UserController extends BaseController
         $this->userdao = new UserDAO();
     }
 
+    public function getIP() {
+		foreach (array('HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_FORWARDED', 'HTTP_X_CLUSTER_CLIENT_IP', 'HTTP_FORWARDED_FOR', 'HTTP_FORWARDED', 'REMOTE_ADDR') as $key) {
+			if (array_key_exists($key, $_SERVER) === true) {
+				foreach (explode(',', $_SERVER[$key]) as $ip) {
+					if (filter_var($ip, FILTER_VALIDATE_IP) !== false) {
+						return $ip;
+					}
+				}
+			}
+		}
+	}
     /**
      * @param Request $request
      * @param Response $response
@@ -64,7 +75,14 @@ class UserController extends BaseController
     public function findUserRequest(Request $request, Response $response, $args)
     {
         try {
-            $user_array = $this->user_service->getUser($args['id']);
+            $user_array = [
+            	$this->userdao->findUserByID($args['id']),
+	            'GA' => TRACKING_CODE,
+	            'ip' => $request->getServerParam('REMOTE_ADDR'),
+	            'url' => preg_replace('/\//', '/', $request->getUri()->getPath()),
+	            'route' => $request->getAttribute('route')
+            ];
+	        GA::gaSendData($url = 'userController/findUser', $user_agent = 'Curl/1.0');
             return $response->withStatus(200)->withJson($user_array);
 
         } catch (\Throwable $e) {

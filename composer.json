@@ -1,9 +1,15 @@
 {
+    "repositories": [
+      { "type": "vcs", "url": "https://github.com/dreboard/myapi_core" },
+      { "type": "vcs", "url": "https://github.com/dreboard/myapi_analytics" }
+    ],
     "require": {
         "slim/slim": "^3.7",
         "illuminate/database": "~5.1",
         "monolog/monolog": "^1.23.0",
-        "dreboard/myapi-core": "1.0.*"
+        "dreboard/myapi-core": "1.0.*",
+        "dreboard/myapi-analytics": "1.0.*",
+        "akrabat/rka-ip-address-middleware": "^0.5.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^6.2",
@@ -17,12 +23,6 @@
         "phpmd/phpmd": "^2.6",
         "sebastian/phpcpd": "^3.0"
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/dreboard/myapi_core"
-        }
-    ],
     "autoload": {
         "psr-4": {
             "App\\Controllers\\": "app/controllers/",

@@ -12,9 +12,9 @@
  *
  * NOTE: If you change these, also change the error_reporting() code below
  */
-define('PLATFORM', 'development');
 
-switch (PLATFORM) {
+
+switch ($_SERVER['APPLICATION_ENV']) {
     case 'development':
         error_reporting(E_ALL);
         ini_set('display_errors', 1);

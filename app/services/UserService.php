@@ -22,6 +22,7 @@ class UserService extends BaseService
     use ResponseHelper;
 
     protected const MIN_ACCOUNT_NUM = 1901;
+    protected $userdao;
 
     public function __construct()
     {
@@ -50,8 +51,8 @@ class UserService extends BaseService
             throw new \InvalidArgumentException($this->lang['invalid_id']);
         }
         $user = $this->userdao->findUserByID($id);
-        $responseData = $this->createGetUserLinks($user);
-        return $responseData;
+        //$responseData = $this->createGetUserLinks($user);
+        return $user;
     }
 
 

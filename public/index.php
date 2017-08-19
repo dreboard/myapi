@@ -15,7 +15,12 @@ use App\Controllers;
 use \Illuminate\Database\Capsule\Manager as Capsule;
 
 // Instantiate the app
-$settings = require __DIR__ . '/../src/settings.php';
+if($_SERVER['APPLICATION_ENV'] == 'development'){
+	$settings = require __DIR__ . '/../src/settings_live.php';
+} else {
+	$settings = require __DIR__ . '/../src/settings_live.php';
+}
+
 $lang  = require __DIR__ . '/../config/lang.php';
 $app = new \Slim\App($settings);
 
