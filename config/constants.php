@@ -10,8 +10,8 @@
  *
  */
 
-if($_SERVER['APPLICATION_ENV'] == 'development'){
-	define('TRACKING_CODE', 'UA-104186490-2');
-} else {
+if(!$_SERVER['APPLICATION_ENV']){
 	define('TRACKING_CODE', 'UA-104186490-1');
+} else {
+	define('TRACKING_CODE', 'UA-104186490-2');
 }
