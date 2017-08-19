@@ -14,7 +14,7 @@
  */
 
 
-/*switch ($_SERVER['APPLICATION_ENV']) {
+switch ($_SERVER['APPLICATION_ENV']) {
     case 'development':
         error_reporting(E_ALL);
         ini_set('display_errors', 1);
@@ -29,4 +29,4 @@
         header('HTTP/1.1 503 Service Unavailable.', true, 503);
         echo 'The application environment is not set correctly.';
         exit(1); // EXIT_ERROR
-}*/
+}
