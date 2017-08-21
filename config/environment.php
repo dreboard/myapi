@@ -6,13 +6,13 @@
  * current environment. Setting the environment also influences
  * things like logging and error reporting.
  *
- *     development
- *     testing
- *     production
+ * development
+ * testing
+ * staging
+ * production
  *
  * NOTE: If you change these, also change the error_reporting() code below
  */
-
 
 switch ($_SERVER['APPLICATION_ENV']) {
     case 'development':
@@ -20,6 +20,7 @@ switch ($_SERVER['APPLICATION_ENV']) {
         ini_set('display_errors', 1);
         break;
     case 'testing':
+	case 'staging':
     case 'production':
         ini_set('display_errors', 0);
         ini_set('log_errors', 'logs/production.log');

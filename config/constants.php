@@ -10,8 +10,8 @@
  *
  */
 
-if(!$_SERVER['APPLICATION_ENV']){
-	define('TRACKING_CODE', 'UA-104186490-1');
+if($_SERVER['APPLICATION_ENV'] == 'production'){
+	define('TRACKING_CODE', 'UA-104186490-1');  // Only production uses the -1 property
 } else {
-	define('TRACKING_CODE', 'UA-104186490-2');
+	define('TRACKING_CODE', 'UA-104186490-2');  // For all other environments
 }

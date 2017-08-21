@@ -1,9 +1,14 @@
 <?php
+/**
+ * Version 1.x Routing
+ * Send uri and responses to google analytics
+ *
+ * @package     App\Routes
+ * @subpackage  Includes
+ * @since       v0.1.0
+ *
+ */
 $app->group('/v1', function () use ($app) {
-
-	//$checkProxyHeaders = true; // Note: Never trust the IP address for security processes!
-	//$trustedProxies = ['10.0.0.1', '10.0.0.2']; // Note: Never trust the IP address for security processes!
-	//$app->add(new RKA\Middleware\IpAddress());
 
     $this->get("/", function ($request, $response, $args) {
         return $response->withJson(['version' => 'v0', 'environment' => $_SERVER['APPLICATION_ENV']]);

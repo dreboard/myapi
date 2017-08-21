@@ -4,10 +4,11 @@ namespace App\Middleware;
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 /**
- * Created by PhpStorm.
- * User: andreboard
- * Date: 7/11/2017
- * Time: 1:44 PM
+ * Class ExampleMiddleware
+ * @package     App\Middleware
+ * @subpackage  Middleware
+ * @since       v0.1.0
+ *
  */
 class ExampleMiddleware
 {
@@ -19,12 +20,13 @@ class ExampleMiddleware
      * @param  callable                                 $next     Next middleware
      *
      * @return \Psr\Http\Message\ResponseInterface
+     * @todo Remove comments and add pre response action
      */
     public function __invoke($request, $response, $next)
     {
-        $response->getBody()->write('BEFORE');
+        //$response->getBody()->write('BEFORE');
         $response = $next($request, $response);
-        $response->getBody()->write('AFTER');
+        //$response->getBody()->write('AFTER');
 
         return $response;
     }

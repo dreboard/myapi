@@ -65,6 +65,7 @@ class UserController extends BaseController
 			}
 		}
 	}
+
     /**
      * @param Request $request
      * @param Response $response
