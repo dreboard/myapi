@@ -11,8 +11,11 @@
 $app->group('/v1', function () use ($app) {
 
     $this->get("/", function ($request, $response, $args) {
-        return $response->withJson(['version' => 'v0', 'environment' => $_SERVER['APPLICATION_ENV']]);
+        return $response->withJson(['version' => 'v0', 'get_var' => $_SERVER['APPLICATION_ENV']]);
     });
+	$this->post("/", function ($request, $response, $args) {
+		return $response->withJson(['version' => 'v0', 'post_var' => $_POST['input']]);
+	});
 
     $app->group('/route', function () {
         $this->get('/', '\App\Controllers\RouteController:routeDetails');
