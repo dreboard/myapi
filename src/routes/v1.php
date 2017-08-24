@@ -19,7 +19,7 @@ $app->group('/v1', function () use ($app) {
 	$this->post("/", function ($request, $response, $args) {
 		try{
 			if($request->getHeaderLine('API_Auth') == 123){
-				return $response->withJson(['version' => 'v0', 'post_var' => $_POST['input']]);
+				return $response->withJson(['version' => 'v0', 'post_var' => $request->getParam('post_var')]);
 			} else{
 				return $response->withJson(['message' => 'Unauthorized User']);
 			}
