@@ -5,3 +5,9 @@ RewriteCond %{REQUEST_URI} !public/
 RewriteRule (.*) /public/$1 [L]
 
 SetEnv APPLICATION_ENV 'development'
+
+<FilesMatch "\.(php)$">
+  <IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+  </IfModule>
+</FilesMatch>
