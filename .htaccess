@@ -3,3 +3,5 @@ RewriteCond %{HTTP_HOST} ^api.dev-php.site [NC,OR]
 RewriteCond %{HTTP_HOST} ^www.api.dev-php.site$
 RewriteCond %{REQUEST_URI} !public/
 RewriteRule (.*) /public/$1 [L]
+
+SetEnv APPLICATION_ENV 'development'

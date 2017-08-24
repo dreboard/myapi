@@ -10,11 +10,23 @@
  */
 $app->group('/v1', function () use ($app) {
 
+	$this->get("/1", function ($request, $response, $args) {
+		return $response->withJson(['version' => 'v0']);
+	});
     $this->get("/", function ($request, $response, $args) {
-        return $response->withJson(['version' => 'v0', 'get_var' => $_SERVER['APPLICATION_ENV']]);
+        return $response->withJson(['version' => 'v0', 'get_var' => $_ENV['APPLICATION_ENV']]);
     });
 	$this->post("/", function ($request, $response, $args) {
-		return $response->withJson(['version' => 'v0', 'post_var' => $_POST['input']]);
+		try{
+			if($request->getHeaderLine('API_Auth') == 123){
+				return $response->withJson(['version' => 'v0', 'post_var' => $_POST['input']]);
+			} else{
+				return $response->withJson(['message' => 'Unauthorized User']);
+			}
+		}catch(Throwable $e) {
+
+		}
+
 	});
 
     $app->group('/route', function () {
