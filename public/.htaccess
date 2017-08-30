@@ -4,7 +4,7 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^ index.php [QSA,L]
 
-#SetEnv APPLICATION_ENV 'development'
+SetEnv APPLICATION_ENV 'development'
 # Custom API headers
 RewriteRule .* - [env=API_Auth:%{HTTP:API_Auth}]
 RewriteRule .? - [env==User-ID:%{HTTP:User-ID}]
