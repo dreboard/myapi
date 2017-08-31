@@ -12,7 +12,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provider "virtualbox" do |vb|
     vb.customize ["modifyvm", :id, "--accelerate3d", "off"]
     vb.gui = true
-    vb.memory = "512"
+    vb.memory = "256"
   end
 
   config.vm.provision "shell", inline: <<-SHELL
