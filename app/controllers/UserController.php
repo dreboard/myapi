@@ -143,7 +143,7 @@ class UserController extends BaseController
                     'json_errors' => json_last_error_msg(),
                     'php_errors' => $e->getMessage(),
                     'php_file' => $e->getFile() . ' ' . $e->getLine(),
-                    'api_msg' => ''
+                    'api_msg' => 'Error With Request'
                 ],
                 400,
                 JSON_PRETTY_PRINT

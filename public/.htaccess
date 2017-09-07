@@ -8,6 +8,7 @@ SetEnv APPLICATION_ENV 'development'
 # Custom API headers
 RewriteRule .* - [env=API_Auth:%{HTTP:API_Auth}]
 RewriteRule .? - [env==User-ID:%{HTTP:User-ID}]
+RewriteRule .* - [env=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
 <FilesMatch "\.(php)$">
   <IfModule mod_headers.c>

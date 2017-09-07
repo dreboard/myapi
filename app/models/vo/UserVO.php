@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use System\BaseModel;
+use \MyApiCore\System\BaseModel;
 use PDO;
 use PDOException;
 use PDOStatement;
@@ -20,10 +20,10 @@ class UserVO extends BaseModel
 {
 
     public $id;
-    public $username;
-    public $firstname;
-    public $lastname;
+    public $first;
+    public $last;
     public $email;
+	public $created;
 
     /**
      * UserDAO constructor.

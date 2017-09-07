@@ -5,6 +5,9 @@ RewriteCond %{REQUEST_URI} !public/
 RewriteRule (.*) /public/$1 [L]
 
 SetEnv APPLICATION_ENV 'development'
+# Custom API headers
+RewriteRule .* - [env=API_Auth:%{HTTP:API_Auth}]
+RewriteRule .? - [env==User-ID:%{HTTP:User-ID}]
 
 <FilesMatch "\.(php)$">
   <IfModule mod_headers.c>

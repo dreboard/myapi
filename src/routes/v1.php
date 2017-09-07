@@ -11,11 +11,24 @@
 $app->group('/v1', function () use ($app) {
 
 	$this->get("/1", function ($request, $response, $args) {
-		return $response->withJson(['version' => 'v0']);
+		$headers = $request->getHeaders();
+		$allHdrs = [];
+		foreach ($headers as $name => $values) {
+			$allHdrs[$name] = $values;
+		}
+		return $response->withJson(['version' => 'v0', 'headers' => $allHdrs]);
 	});
 	$this->post("/1", function ($request, $response, $args) {
-		$auth = $request->getHeader('API_Auth');
-		return $response->withJson(['version' => 'v0', 'header' => $auth]);
+		$allHdrs = [];
+		foreach ($request->getHeaders() as $name => $values) {
+			$allHdrs[$name] = $values;
+		}
+		if($request->getHeaderLine('HTTP_X_AUTH') == 123){
+			return $response->withJson(['version' => 'v0', 'headers' => $allHdrs]);
+		} else{
+			return $response->withJson(['message' => 'Unauthorized User']);
+		}
+
 	});
     $this->get("/", function ($request, $response, $args) {
 	    if($request->getHeaderLine('API_Auth') == 123){
